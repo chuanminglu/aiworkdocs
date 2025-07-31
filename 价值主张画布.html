@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>价值主张画布 - 汽车零部件制造企业数字化转型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .canvas-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .canvas-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .canvas-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .canvas-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .canvas-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
+        }
+
+        .customer-segment, .value-proposition {
+            padding: 30px;
+            position: relative;
+        }
+
+        .customer-segment {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-right: 3px dashed #e0e0e0;
+        }
+
+        .value-proposition {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .subsection:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .subsection-title {
+            font-size: 1.3em;
+            color: #34495e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .subsection-title .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .item-list {
+            list-style: none;
+        }
+
+        .item-list li {
+            margin-bottom: 8px;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .item-list li:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-left-color: #e74c3c;
+            transform: translateX(5px);
+        }
+
+        .highlight-number {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff7b7b, #4facfe);
+            transform: translate(-50%, -50%);
+            border-radius: 3px;
+            z-index: 10;
+        }
+
+        .connection-line::before {
+            content: '🔗';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 1.2em;
+        }
+
+        .value-metrics {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .value-metrics h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .metric-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .canvas-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .customer-segment {
+                border-right: none;
+                border-bottom: 3px dashed #e0e0e0;
+            }
+            
+            .connection-line {
+                display: none;
+            }
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .print-button:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .print-button {
+                display: none;
+            }
+            
+            .canvas-container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ 打印</button>
+    
+    <div class="canvas-container">
+        <div class="canvas-header">
+            <h1>价值主张画布</h1>
+            <div class="canvas-subtitle">汽车零部件制造企业数字化转型解决方案</div>
+        </div>
+
+        <div class="canvas-body">
+            <!-- 客户细分区域 -->
+            <div class="customer-segment">
+                <h2 class="section-title">客户细分 Customer Segment</h2>
+
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="emoji">🎯</span>
+                        客户工作任务 (Customer Jobs)
+                    </div>
+                    <ul class="item-list">
+                        <li class="tooltip" data-tooltip="核心生产制造任务">汽车零部件生产制造</li>
+                        <li class="tooltip" data-tooltip="确保产品质量符合标准">质量检测与控制</li>
+                        <li class="tooltip" data-tooltip="供应链全流程管理">供应链管理</li>
+                        <li class="tooltip" data-tooltip="处理客户订单和需求">客户订单处理</li>
+                        <li class="tooltip" data-tooltip="在市场中保持竞争优势">提升企业竞争力</li>
+                        <li class="tooltip" data-tooltip="让客户满意并建立长期关系">增强客户满意度</li>
+                        <li class="tooltip" data-tooltip="承担社会责任">履行环保责任</li>
+                        <li class="tooltip" data-tooltip="推动整个行业的数字化进程">推动行业数字化</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="emoji">📈</span>
+                        收益期望 (Expected Gains)
+                    </div>
+                    <ul class="item-list">
+                        <li>生产效率显著提升</li>
+                        <li>产品质量大幅改善</li>
+                        <li>供应链透明度增强</li>
+                        <li>客户满意度提升</li>
+                        <li>成为行业数字化标杆</li>
+                        <li>获得更多优质客户</li>
+                        <li>提升品牌价值</li>
+                        <li>员工技能水平提升</li>
+                        <li>管理决策更加科学</li>
+                        <li>企业估值增长</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="emoji">😰</span>
+                        痛点困扰 (Customer Pains)
+                    </div>
+                    <ul class="item-list">
+                        <li>设备利用率低(<span class="highlight-number">65%</span>)</li>
+                        <li>生产计划准确率仅<span class="highlight-number">70%</span></li>
+                        <li>质量检测依赖人工，合格率<span class="highlight-number">90%</span></li>
+                        <li>返工率高达<span class="highlight-number">8%</span></li>
+                        <li>库存积压严重，资金占用<span class="highlight-number">15亿</span></li>
+                        <li>客户响应周期长达<span class="highlight-number">15天</span></li>
+                        <li>年度机会成本损失<span class="highlight-number">5000万元</span></li>
+                        <li>质量成本占营收<span class="highlight-number">3.5%</span></li>
+                        <li>潜在订单损失约<span class="highlight-number">2亿元</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 连接线 -->
+            <div class="connection-line"></div>
+
+            <!-- 价值主张区域 -->
+            <div class="value-proposition">
+                <h2 class="section-title">价值主张 Value Proposition</h2>
+
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="emoji">🎁</span>
+                        产品与服务 (Products & Services)
+                    </div>
+                    <ul class="item-list">
+                        <li class="tooltip" data-tooltip="制造执行系统，实现生产过程数字化">智能制造执行系统(MES)</li>
+                        <li class="tooltip" data-tooltip="基于AI的自动化质量检测">AI质量检测平台</li>
+                        <li class="tooltip" data-tooltip="端到端供应链管理解决方案">数字化供应链管理系统</li>
+                        <li class="tooltip" data-tooltip="客户关系管理和服务系统">客户关系管理系统</li>
+                        <li class="tooltip" data-tooltip="物联网设备实时监控平台">IoT设备监控平台</li>
+                        <li class="tooltip" data-tooltip="移动端办公和管理应用">移动办公应用</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="emoji">💰</span>
+                        收益创造者 (Gain Creators)
+                    </div>
+                    <ul class="item-list">
+                        <li>生产效率提升<span class="highlight-number">30%</span></li>
+                        <li>设备利用率从<span class="highlight-number">65%</span>提升至<span class="highlight-number">85%</span></li>
+                        <li>质量合格率从<span class="highlight-number">90%</span>提升至<span class="highlight-number">99%</span></li>
+                        <li>库存周转率提升<span class="highlight-number">40%</span></li>
+                        <li>客户响应时间从<span class="highlight-number">15天</span>缩短至<span class="highlight-number">3天</span></li>
+                        <li>年度增产价值<span class="highlight-number">1.5亿元</span></li>
+                        <li>质量成本节约<span class="highlight-number">8000万元</span></li>
+                        <li>减少库存占用资金<span class="highlight-number">3亿元</span></li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">
+                        <span class="emoji">💊</span>
+                        痛点缓解者 (Pain Relievers)
+                    </div>
+                    <ul class="item-list">
+                        <li>解决生产计划不准确问题</li>
+                        <li>消除质量检测盲点</li>
+                        <li>打通供应链信息孤岛</li>
+                        <li>提高客户需求响应速度</li>
+                        <li>减少人工操作错误</li>
+                        <li>实现设备预测性维护</li>
+                        <li>建立实时数据驱动决策</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 价值指标总览 -->
+        <div class="value-metrics">
+            <h3>🎯 核心价值指标</h3>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">192%</div>
+                    <div class="metric-label">投资回报率</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">18个月</div>
+                    <div class="metric-label">投资回收期</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">4.8亿元</div>
+                    <div class="metric-label">年化收益</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">2.5亿元</div>
+                    <div class="metric-label">总投资</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 添加交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为列表项添加点击效果
+            const listItems = document.querySelectorAll('.item-list li');
+            listItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.background = 'rgba(52, 152, 219, 0.2)';
+                    setTimeout(() => {
+                        this.style.background = '';
+                    }, 1000);
+                });
+            });
+
+            // 添加数字计数动画
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const text = metric.textContent;
+                const number = parseFloat(text.replace(/[^\d.]/g, ''));
+                if (!isNaN(number)) {
+                    animateNumber(metric, 0, number, text);
+                }
+            });
+        });
+
+        function animateNumber(element, start, end, suffix) {
+            const duration = 2000;
+            const startTime = performance.now();
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const current = start + (end - start) * easeOutCubic(progress);
+                
+                let displayValue = current.toFixed(1);
+                if (suffix.includes('%')) {
+                    element.textContent = displayValue + '%';
+                } else if (suffix.includes('亿')) {
+                    element.textContent = displayValue + '亿元';
+                } else if (suffix.includes('个月')) {
+                    element.textContent = Math.round(current) + '个月';
+                } else {
+                    element.textContent = displayValue;
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+
+        function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大数据架构体系图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 800px;
+            position: relative;
+        }
+
+        .left-panel {
+            flex: 0 0 70%;
+            padding: 30px;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .right-panel {
+            flex: 0 0 30%;
+            background: white;
+            padding: 20px;
+            border-left: 3px solid #e0e6ed;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .architecture-title {
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 24px;
+            font-weight: bold;
+            color: #4A90E2;
+            writing-mode: vertical-lr;
+            text-orientation: mixed;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .architecture-layer {
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .architecture-layer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .layer-header {
+            padding: 15px 20px;
+            font-weight: bold;
+            color: white;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layer-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .layer-header:hover::before {
+            transform: translateX(100%);
+        }
+
+        .layer-content {
+            background: white;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .component {
+            background: white;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .component::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .component:hover::before {
+            left: 100%;
+        }
+
+        .component:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-color: #4A90E2;
+        }
+
+        .component.highlight {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border-color: #4A90E2;
+        }
+
+        /* 层级样式 */
+        .network-layer .layer-header { background: linear-gradient(135deg, #4A90E2, #357ABD); }
+        .communication-layer .layer-header { background: linear-gradient(135deg, #4CAF50, #45A049); }
+        .application-layer .layer-header { background: linear-gradient(135deg, #FFC107, #FF9800); }
+        .service-layer .layer-header { background: linear-gradient(135deg, #4CAF50, #45A049); }
+        .compute-layer .layer-header { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .storage-layer .layer-header { background: linear-gradient(135deg, #9C27B0, #8E24AA); }
+        .middleware-layer .layer-header { background: linear-gradient(135deg, #FFC107, #FF9800); }
+        .datasource-layer .layer-header { background: linear-gradient(135deg, #795548, #6D4C41); }
+
+        .side-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .business-platform h3 {
+            background: linear-gradient(135deg, #673AB7, #5E35B1);
+        }
+
+        .devops-tools h3 {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+        }
+
+        .service-group {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #4A90E2;
+        }
+
+        .service-group h4 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .service-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .service-item {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 1px solid #90caf9;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: #1976d2;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-item:hover {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .arrows {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .arrow {
+            width: 40px;
+            height: 3px;
+            background: #4A90E2;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #4A90E2;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+
+        .arrow:hover {
+            background: #2196F3;
+            transform: scaleX(1.2);
+        }
+
+        .arrow:hover::after {
+            border-left-color: #2196F3;
+        }
+
+        .data-flow {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .loading-animation {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                flex: none;
+            }
+            
+            .right-panel {
+                flex: none;
+                border-left: none;
+                border-top: 3px solid #e0e6ed;
+            }
+            
+            .architecture-title {
+                position: static;
+                transform: none;
+                writing-mode: horizontal-tb;
+                text-orientation: mixed;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+        }
+
+        .stats-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-size: 12px;
+            z-index: 100;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 4px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-mode {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .highlight-mode button {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            margin: 2px;
+        }
+
+        .highlight-mode button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .highlight-mode button.active {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ 大数据架构体系图</h1>
+            <p>Enterprise Big Data Architecture System</p>
+        </div>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="architecture-title">大数据架构体系</div>
+                
+                <!-- 网络接入层 -->
+                <div class="architecture-layer network-layer">
+                    <div class="layer-header">
+                        🌐 网络接入层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="分布式拒绝服务攻击防护">🛡️ DDOS防护</div>
+                        <div class="component" data-tooltip="安全接入服务">🔒 安全防护SAS</div>
+                        <div class="component" data-tooltip="Web应用防火墙">🌐 WAF防护</div>
+                        <div class="component" data-tooltip="负载均衡器">⚖️ 负载均衡</div>
+                        <div class="component" data-tooltip="内容分发网络">🚀 CDN</div>
+                    </div>
+                </div>
+
+                <!-- 网络通信层 -->
+                <div class="architecture-layer communication-layer">
+                    <div class="layer-header">
+                        🔗 网络通信层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="WebSocket实时通信">🔌 WebSocket</div>
+                        <div class="component" data-tooltip="HTTP/HTTPS协议">📡 HTTP/HTTPS</div>
+                        <div class="component" data-tooltip="TCP/UDP传输协议">🔗 TCP/UDP</div>
+                        <div class="component" data-tooltip="API网关服务">🚪 API网关</div>
+                    </div>
+                </div>
+
+                <!-- 应用层 -->
+                <div class="architecture-layer application-layer">
+                    <div class="layer-header">
+                        📊 应用层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="实时数据看板">📈 大数据实时看板</div>
+                        <div class="component" data-tooltip="数据可视化报表">📊 数据库可视化报表</div>
+                        <div class="component" data-tooltip="业务仪表盘">🎯 各类仪表盘</div>
+                    </div>
+                </div>
+
+                <!-- 服务层 -->
+                <div class="architecture-layer service-layer">
+                    <div class="layer-header">
+                        ⚙️ 服务层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="关系型数据库服务">🗄️ RDS</div>
+                        <div class="component" data-tooltip="Apache Doris分析数据库">💎 Doris</div>
+                        <div class="component" data-tooltip="Redis缓存数据库">🔴 Redis</div>
+                        <div class="component" data-tooltip="Spring Cloud微服务框架">☁️ SpringCloud</div>
+                        <div class="component" data-tooltip="微服务架构">🔧 微服务</div>
+                        <div class="component" data-tooltip="Django Web框架">🐍 Django</div>
+                        <div class="component" data-tooltip="UBI统一业务平台">🏢 UBI平台</div>
+                        <div class="component" data-tooltip="应用程序接口">🔌 API</div>
+                    </div>
+                </div>
+
+                <!-- 计算层 -->
+                <div class="architecture-layer compute-layer">
+                    <div class="layer-header">
+                        🧠 计算层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="Spark SQL资源管理">⚡ SparkSQL/RM</div>
+                        <div class="component" data-tooltip="MapReduce分布式计算">🗺️ MapReduce</div>
+                        <div class="component" data-tooltip="Flink流处理">🌊 Flink/Streaming</div>
+                        <div class="component" data-tooltip="机器学习平台">🤖 机器学习</div>
+                        <div class="component" data-tooltip="Kafka消息队列">📨 Kafka</div>
+                        <div class="component" data-tooltip="数据挖掘工具">⛏️ 数据挖掘</div>
+                    </div>
+                </div>
+
+                <!-- 存储层 -->
+                <div class="architecture-layer storage-layer">
+                    <div class="layer-header">
+                        💾 存储层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="Hadoop分布式文件系统">🗂️ HDFS</div>
+                        <div class="component" data-tooltip="HBase分布式数据库">🏛️ HBase</div>
+                        <div class="component" data-tooltip="数据中台">🏭 DataHub</div>
+                        <div class="component" data-tooltip="MQTT消息传输">📡 IMQTT</div>
+                        <div class="component" data-tooltip="数据管理平台">🎛️ KYDMA</div>
+                    </div>
+                </div>
+
+                <!-- 中间层 -->
+                <div class="architecture-layer middleware-layer">
+                    <div class="layer-header">
+                        🔧 中间层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="数据源连接">🔗 DataSource</div>
+                        <div class="component" data-tooltip="Flume日志收集">📊 Flume</div>
+                        <div class="component" data-tooltip="LogStash日志处理">📋 LogStash</div>
+                        <div class="component" data-tooltip="Beats数据采集">🥁 Beats</div>
+                        <div class="component" data-tooltip="Scoop数据传输">🚚 Scoop</div>
+                    </div>
+                </div>
+
+                <!-- 数据源层 -->
+                <div class="architecture-layer datasource-layer">
+                    <div class="layer-header">
+                        📁 数据源层
+                    </div>
+                    <div class="layer-content">
+                        <div class="component" data-tooltip="半结构化数据">📄 半结构化数据</div>
+                        <div class="component" data-tooltip="结构化数据">📊 结构化数据</div>
+                        <div class="component" data-tooltip="实时数据流">⚡ 实时数据</div>
+                        <div class="component" data-tooltip="离线批处理数据">💤 离线数据</div>
+                    </div>
+                </div>
+
+                <div class="data-flow">
+                    <div class="loading-animation"></div>
+                    <span>业务数据，异构数据，日志数据</span>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <!-- 业务平台 -->
+                <div class="side-panel business-platform">
+                    <h3>🏢 业务平台架构体系</h3>
+                    
+                    <div class="service-group">
+                        <h4>核心服务</h4>
+                        <div class="service-items">
+                            <div class="service-item">👤 用户中心</div>
+                            <div class="service-item">📊 业务分析</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>用户服务</h4>
+                        <div class="service-items">
+                            <div class="service-item">👥 用户服务</div>
+                            <div class="service-item">📈 数据服务</div>
+                            <div class="service-item">💰 支付服务</div>
+                            <div class="service-item">📨 消息服务</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>公共服务</h4>
+                        <div class="service-items">
+                            <div class="service-item">📤 上传服务</div>
+                            <div class="service-item">🔒 缓存门控</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>容器服务</h4>
+                        <div class="service-items">
+                            <div class="service-item">🔗 Feign</div>
+                            <div class="service-item">🎀 Ribbon</div>
+                            <div class="service-item">🛡️ Hystrix</div>
+                            <div class="service-item">🏢 Eureka</div>
+                            <div class="service-item">🚪 Zuul</div>
+                            <div class="service-item">⚙️ 配置中心</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 运维服务 -->
+                <div class="side-panel devops-tools">
+                    <h3>🛠️ 运维服务</h3>
+                    
+                    <div class="service-group">
+                        <h4>通信协议</h4>
+                        <div class="service-items">
+                            <div class="service-item">📡 REST</div>
+                            <div class="service-item">🔌 RPC</div>
+                            <div class="service-item">📨 MQ</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>持续集成</h4>
+                        <div class="service-items">
+                            <div class="service-item">🦊 GitLab</div>
+                            <div class="service-item">🔧 Jenkins</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>容器化</h4>
+                        <div class="service-items">
+                            <div class="service-item">🐳 Docker</div>
+                            <div class="service-item">☸️ Kubernetes</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>监控运维</h4>
+                        <div class="service-items">
+                            <div class="service-item">📊 ZABBIX</div>
+                            <div class="service-item">📋 日志服务</div>
+                        </div>
+                    </div>
+
+                    <div class="service-group">
+                        <h4>数据存储</h4>
+                        <div class="service-items">
+                            <div class="service-item">🗄️ MySQL集群</div>
+                            <div class="service-item">🔴 Redis集群</div>
+                            <div class="service-item">🔍 ES</div>
+                            <div class="service-item">🍃 MongoDB集群</div>
+                            <div class="service-item">☁️ OSS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arrows">
+                    <div class="arrow"></div>
+                    <div class="arrow"></div>
+                    <div class="arrow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计面板 -->
+    <div class="stats-panel">
+        <div class="stats-item">
+            <span>组件总数:</span>
+            <span id="totalComponents">0</span>
+        </div>
+        <div class="stats-item">
+            <span>架构层级:</span>
+            <span id="totalLayers">8</span>
+        </div>
+        <div class="stats-item">
+            <span>服务数量:</span>
+            <span id="totalServices">0</span>
+        </div>
+    </div>
+
+    <!-- 高亮模式 -->
+    <div class="highlight-mode">
+        <button onclick="highlightLayer('network')">网络层</button>
+        <button onclick="highlightLayer('service')">服务层</button>
+        <button onclick="highlightLayer('compute')">计算层</button>
+        <button onclick="highlightLayer('storage')">存储层</button>
+        <button onclick="clearHighlight()">清除</button>
+    </div>
+
+    <!-- 工具提示 -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // 初始化统计数据
+        function initStats() {
+            const totalComponents = document.querySelectorAll('.component').length;
+            const totalServices = document.querySelectorAll('.service-item').length;
+            
+            document.getElementById('totalComponents').textContent = totalComponents;
+            document.getElementById('totalServices').textContent = totalServices;
+        }
+
+        // 工具提示功能
+        function initTooltips() {
+            const tooltip = document.getElementById('tooltip');
+            const components = document.querySelectorAll('.component[data-tooltip]');
+            
+            components.forEach(component => {
+                component.addEventListener('mouseenter', function(e) {
+                    const tooltipText = this.getAttribute('data-tooltip');
+                    tooltip.textContent = tooltipText;
+                    tooltip.classList.add('show');
+                    
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = rect.left + 'px';
+                    tooltip.style.top = (rect.top - 40) + 'px';
+                });
+                
+                component.addEventListener('mouseleave', function() {
+                    tooltip.classList.remove('show');
+                });
+            });
+        }
+
+        // 高亮功能
+        function highlightLayer(layerType) {
+            clearHighlight();
+            
+            const layers = document.querySelectorAll(`.${layerType}-layer`);
+            layers.forEach(layer => {
+                layer.classList.add('pulse');
+                const components = layer.querySelectorAll('.component');
+                components.forEach(comp => comp.classList.add('highlight'));
+            });
+            
+            // 高亮按钮
+            document.querySelectorAll('.highlight-mode button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function clearHighlight() {
+            document.querySelectorAll('.architecture-layer').forEach(layer => {
+                layer.classList.remove('pulse');
+            });
+            document.querySelectorAll('.component').forEach(comp => {
+                comp.classList.remove('highlight');
+            });
+            document.querySelectorAll('.highlight-mode button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        // 添加动画效果
+        function addAnimations() {
+            const layers = document.querySelectorAll('.architecture-layer');
+            layers.forEach((layer, index) => {
+                setTimeout(() => {
+                    layer.classList.add('float');
+                }, index * 200);
+            });
+        }
+
+        // 组件点击事件
+        function initComponentInteractions() {
+            const components = document.querySelectorAll('.component');
+            components.forEach(component => {
+                component.addEventListener('click', function() {
+                    this.classList.toggle('highlight');
+                    
+                    // 添加点击波纹效果
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255,255,255,0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.marginLeft = '-25px';
+                    ripple.style.marginTop = '-25px';
+                    ripple.style.width = '50px';
+                    ripple.style.height = '50px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        }
+
+        // 添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 初始化所有功能
+        document.addEventListener('DOMContentLoaded', function() {
+            initStats();
+            initTooltips();
+            addAnimations();
+            initComponentInteractions();
+            
+            // 添加页面加载动画
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        });
+
+        // 响应式处理
+        window.addEventListener('resize', function() {
+            // 重新计算工具提示位置
+            const tooltip = document.getElementById('tooltip');
+            if (tooltip.classList.contains('show')) {
+                tooltip.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

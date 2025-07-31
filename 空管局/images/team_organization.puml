@@ -1,0 +1,123 @@
+@startuml team_organization
+!define DIRECTION top to bottom direction
+skinparam backgroundColor white
+skinparam roundcorner 15
+skinparam shadowing false
+skinparam linetype ortho
+
+skinparam arrow {
+    Color #2E86AB
+    Thickness 2
+}
+
+skinparam rectangle {
+    BackgroundColor #E8F4FD
+    BorderColor #2E86AB
+    FontColor #1B4D72
+    FontSize 12
+    FontStyle bold
+}
+
+skinparam rectangle<<executive>> {
+    BackgroundColor #1B4D72
+    BorderColor #1B4D72
+    FontColor white
+    FontSize 14
+    FontStyle bold
+}
+
+skinparam rectangle<<director>> {
+    BackgroundColor #2E86AB
+    BorderColor #2E86AB
+    FontColor white
+    FontSize 13
+    FontStyle bold
+}
+
+skinparam rectangle<<expert>> {
+    BackgroundColor #4A90A4
+    BorderColor #4A90A4
+    FontColor white
+    FontSize 12
+}
+
+skinparam rectangle<<engineer>> {
+    BackgroundColor #A4C3D2
+    BorderColor #7A9CB8
+    FontColor #1B4D72
+    FontSize 11
+}
+
+rectangle "项目总监%newline()鹿传明%newline()25年咨询经验" as PD <<executive>>
+
+rectangle "技术总监%newline()禹朴勇%newline()12年DevOps经验" as TD <<director>>
+rectangle "交付总监%newline()陈俊%newline()10年项目管理经验" as DD <<director>>
+
+rectangle "DevOps架构师%newline()王福军%newline()10年实践经验" as DA <<expert>>
+rectangle "安全专家%newline()张东辉%newline()25年安全经验" as SE <<expert>>
+rectangle "质量专家%newline()廖秋凤%newline()10年质量管理" as QE <<expert>>
+
+rectangle "实施经理%newline()何伟杰%newline()8年实施经验" as IM <<expert>>
+rectangle "培训专家%newline()俞小芸%newline()18年培训经验" as TE <<expert>>
+rectangle "运维专家%newline()邬辉宁%newline()9年运维经验" as OE <<expert>>
+
+rectangle "Jenkins工程师%newline()(2人)" as JE <<engineer>>
+rectangle "容器化专家%newline()(1人)" as CE <<engineer>>
+rectangle "安全工具专家%newline()(1人)" as STE <<engineer>>
+rectangle "合规顾问%newline()(1人)" as CC <<engineer>>
+rectangle "测试架构师%newline()(1人)" as TA <<engineer>>
+rectangle "代码质量专家%newline()(1人)" as CQE <<engineer>>
+
+PD -down-> TD
+PD -down-> DD
+
+TD -down-> DA
+TD -down-> SE  
+TD -down-> QE
+
+DD -down-> IM
+DD -down-> TE
+DD -down-> OE
+
+DA -down-> JE
+DA -down-> CE
+
+SE -down-> STE
+SE -down-> CC
+
+QE -down-> TA
+QE -down-> CQE
+
+' 隐藏线用于布局优化
+TD -[hidden]right- DD
+DA -[hidden]right- SE
+SE -[hidden]right- QE
+IM -[hidden]right- TE
+TE -[hidden]right- OE
+
+JE -[hidden]right- CE
+STE -[hidden]right- CC
+TA -[hidden]right- CQE
+
+note top of PD
+核心领导团队
+战略决策
+项目管控
+客户关系
+end note
+
+note right of TD
+技术支撑团队
+架构设计
+技术选型
+质量保障
+end note
+
+note left of DD
+交付保障团队
+项目实施
+培训服务
+运维支持
+end note
+
+@enduml
