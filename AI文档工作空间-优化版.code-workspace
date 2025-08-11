@@ -1,0 +1,49 @@
+{
+    "folders": [
+        {
+            "name": "AI文档s",
+            "path": "."
+        },
+        {
+            "name": "aidocs",
+            "path": "../aidocs"
+        },
+        {
+            "name": "crane_demo",
+            "path": "../crane_fault_prediction_demo"
+        }
+    ],
+    "settings": {
+        // 性能优化设置
+        "files.watcherExclude": {
+            "**/node_modules/**": true,
+            "**/.git/objects/**": true,
+            "**/aidocs-env/**": true,
+            "**/crane_demo_env/**": true,
+            "**/__pycache__/**": true,
+            "**/logs/**": true,
+            "**/output/**": true,
+            "**/cache/**": true
+        },
+        
+        // 大文件处理
+        "editor.largeFileOptimizations": true,
+        "editor.accessibilitySupport": "off",
+        
+        // 禁用不必要的功能
+        "telemetry.telemetryLevel": "off",
+        "workbench.enableExperiments": false,
+        "workbench.settings.enableNaturalLanguageSearch": false,
+        
+        // 减少自动保存频率
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 5000
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-toolsai.jupyter",
+            "yzhang.markdown-all-in-one"
+        ]
+    }
+}
