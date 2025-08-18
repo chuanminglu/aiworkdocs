@@ -1,0 +1,178 @@
+@startuml AI_DevOps_Package_Architecture_Vertical
+!theme plain
+!define DIRECTION top to bottom direction
+skinparam packageStyle rectangle
+skinparam packageBackgroundColor #ffffff
+skinparam packageBorderColor #cccccc
+skinparam linetype ortho
+skinparam minClassWidth 200
+skinparam rectangleBackgroundColor #ffffff
+skinparam rectangleBorderColor #888888
+
+' 设置rectangle宽度增加一倍
+skinparam rectangle {
+  MinimumWidth 800
+  BackgroundColor #ffffff
+  BorderColor #888888
+}
+
+title AI大模型重构DevOps全流程：五层架构设计
+
+' 强制垂直布局
+top to bottom direction
+
+rectangle "第5层：价值实现层" as Layer5 #ffebee {
+    class "效能量化评估" as L5_Metrics {
+        + 开发效率类指标
+        + 质量提升类指标  
+        + 流程优化类指标
+    }
+    
+    class "持续改进机制" as L5_Improvement {
+        + 个人AI工具箱建设
+        + 团队AI能力建设
+        + 知识共享机制
+    }
+    
+    class "ROI分析模型" as L5_ROI {
+        + 成本投入分析
+        + 效益产出评估
+        + 目标ROI: 300%+
+    }
+}
+
+rectangle "第4层：场景应用层" as Layer4 #f3e5f5 {
+    class "民航业务场景" as L4_Aviation {
+        + 航班调度系统AI重构
+        + 票务系统性能优化
+        + 机场运营管理平台
+    }
+    
+    class "行业最佳实践" as L4_Practices {
+        + 微服务架构改造
+        + 遗留系统重构
+        + 数据平台建设
+    }
+    
+    class "个性化方案" as L4_Personal {
+        + 基于岗位定制
+        + 基于经验调整
+        + 基于项目适配
+    }
+}
+
+rectangle "第3层：方法实践层" as Layer3 #fff3e0 {
+    class "需求阶段AI赋能" as L3_Req {
+        + 智能需求分析
+        + 自动文档生成
+        + 质量保障机制
+    }
+    
+    class "设计阶段AI赋能" as L3_Design {
+        + 智能架构设计
+        + API设计优化
+        + 数据库设计
+    }
+    
+    class "开发阶段AI赋能" as L3_Dev {
+        + 智能编程辅助
+        + 代码质量保障
+        + 测试自动生成
+    }
+    
+    class "测试阶段AI赋能" as L3_Test {
+        + 智能测试设计
+        + 自动化测试维护
+        + 缺陷分析优化
+    }
+    
+    class "部署阶段AI赋能" as L3_Deploy {
+        + 智能CI/CD流水线
+        + 配置管理优化
+        + 发布管理智能化
+    }
+    
+    class "运维阶段AI赋能" as L3_Ops {
+        + 智能监控告警
+        + 故障处理自动化
+        + 性能优化建议
+    }
+}
+
+rectangle "第2层：工具生态层" as Layer2 #e3f2fd {
+    class "GitHub云体系" as L2_GitHub {
+        + GitHub Copilot套件
+        + GitHub Actions AI增强
+        + GitHub项目管理
+    }
+    
+    class "VSCode+AI开发环境" as L2_VSCode {
+        + 核心AI插件
+        + 个性化配置
+        + 团队协作工具
+    }
+    
+    class "MCP生态系统" as L2_MCP {
+        + MCP服务器构建
+        + Claude Desktop集成
+        + 企业级应用
+    }
+    
+    class "工具链集成" as L2_Integration {
+        + 代码质量工具
+        + 设计协作工具
+        + 文档管理工具
+        + 测试运维工具
+    }
+}
+
+rectangle "第1层：AI基础认知层" as Layer1 #e8f5e8 {
+    class "大模型原理认知" as L1_Fundamentals {
+        + AI发展历程
+        + 模型核心能力
+        + 技术原理浅析
+    }
+    
+    class "能力边界认知" as L1_Boundaries {
+        + 优势能力识别
+        + 局限性理解
+        + 风险防范
+    }
+    
+    class "模型选择标准" as L1_Selection {
+        + 任务类型匹配
+        + 性能指标评估
+        + 企业级考量
+    }
+    
+    class "提示工程技巧" as L1_Prompt {
+        + 结构化提示设计
+        + 高级技巧应用
+        + 专业领域优化
+    }
+}
+
+' 包级别的依赖关系 (强制垂直层级关系)
+Layer5 -down-> Layer4 : "价值实现"
+Layer4 -down-> Layer3 : "场景应用" 
+Layer3 -down-> Layer2 : "方法实践"
+Layer2 -down-> Layer1 : "工具支撑"
+
+' 层级关系布局提示
+Layer5 -[hidden]down- Layer4
+Layer4 -[hidden]down- Layer3  
+Layer3 -[hidden]down- Layer2
+Layer2 -[hidden]down- Layer1
+
+' 添加垂直布局说明
+note top of Layer5
+  <b>顶层：最终目标</b>
+  通过量化指标体现AI价值
+end note
+
+note bottom of Layer1
+  <b>基础层：根本支撑</b>
+  AI认知是所有应用的基础
+end note
+
+@enduml

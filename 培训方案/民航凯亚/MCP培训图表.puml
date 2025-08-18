@@ -1,0 +1,339 @@
+@startuml MCP_Training_Diagrams
+!theme plain
+
+' 图表1: MCP架构总览
+@startuml MCP_Architecture_Overview
+!theme plain
+title Model Context Protocol (MCP) 架构总览
+
+package "AI Client 层" as ClientLayer #e8f4f8 {
+    [Claude Desktop] as Claude
+    [VS Code + Cline] as VSCode
+    [其他AI客户端] as OtherClients
+}
+
+package "MCP Protocol 层" as ProtocolLayer #fff2e8 {
+    [MCP Runtime] as Runtime
+    [消息路由] as Router
+    [协议适配器] as Adapter
+}
+
+package "MCP Server 层" as ServerLayer #e8f8e8 {
+    [GitHub Server] as GitHub
+    [文件系统 Server] as FileSystem
+    [数据库 Server] as Database
+    [自定义 Server] as Custom
+}
+
+package "外部资源层" as ResourceLayer #f8e8e8 {
+    [GitHub API] as GitHubAPI
+    [本地文件] as LocalFiles
+    [SQL数据库] as SQLDatabase
+    [Web服务] as WebServices
+}
+
+' 连接关系
+Claude --> Runtime : "JSON-RPC"
+VSCode --> Runtime : "stdio/websocket"
+OtherClients --> Runtime : "标准协议"
+
+Runtime --> Router : "消息分发"
+Router --> Adapter : "协议转换"
+
+Adapter --> GitHub : "工具调用"
+Adapter --> FileSystem : "资源访问"
+Adapter --> Database : "数据操作"
+Adapter --> Custom : "扩展功能"
+
+GitHub --> GitHubAPI : "REST API"
+FileSystem --> LocalFiles : "文件I/O"
+Database --> SQLDatabase : "SQL查询"
+Custom --> WebServices : "HTTP请求"
+
+note right of ProtocolLayer
+  <b>核心特性</b>
+  • 标准化接口
+  • 安全沙箱
+  • 异步通信
+  • 错误处理
+end note
+
+@enduml
+
+' 图表2: MCP通信架构
+@startuml MCP_Communication_Architecture
+!theme plain
+title MCP通信架构详解
+
+participant "AI Client" as Client
+participant "MCP Runtime" as Runtime
+participant "MCP Server" as Server
+participant "外部资源" as Resource
+
+== 初始化阶段 ==
+Client -> Runtime: 启动MCP客户端
+Runtime -> Server: 建立连接 (stdio/websocket)
+Server -> Runtime: 返回服务器信息
+Runtime -> Client: 准备就绪
+
+== 能力发现阶段 ==
+Client -> Runtime: 请求服务器能力
+Runtime -> Server: list_tools()
+Server -> Runtime: 返回工具列表
+Runtime -> Client: 能力清单
+
+== 工具调用阶段 ==
+Client -> Runtime: call_tool(name, args)
+Runtime -> Server: 转发工具调用
+Server -> Resource: 执行具体操作
+Resource -> Server: 返回操作结果
+Server -> Runtime: 工具执行结果
+Runtime -> Client: 格式化结果
+
+== 资源访问阶段 ==
+Client -> Runtime: read_resource(uri)
+Runtime -> Server: 请求资源内容
+Server -> Resource: 获取资源数据
+Resource -> Server: 资源内容
+Server -> Runtime: 序列化数据
+Runtime -> Client: 资源内容
+
+== 错误处理 ==
+alt 操作失败
+    Server -> Runtime: 错误信息
+    Runtime -> Client: 标准化错误响应
+else 超时处理
+    Runtime -> Client: 超时错误
+end
+
+@enduml
+
+' 图表3: MCP协议栈
+@startuml MCP_Protocol_Stack
+!theme plain
+title MCP协议栈结构
+
+package "应用层" as AppLayer #e3f2fd {
+    [AI Assistant] as Assistant
+    [用户界面] as UI
+}
+
+package "MCP应用协议层" as MCPAppLayer #fff3e0 {
+    [工具调用] as Tools
+    [资源访问] as Resources  
+    [提示模板] as Prompts
+    [采样控制] as Sampling
+}
+
+package "MCP核心协议层" as MCPCoreLayer #f3e5f5 {
+    [消息格式] as MessageFormat
+    [错误处理] as ErrorHandling
+    [认证授权] as Auth
+    [会话管理] as Session
+}
+
+package "传输层" as TransportLayer #e8f5e8 {
+    [JSON-RPC 2.0] as JSONRPC
+    [消息序列化] as Serialization
+}
+
+package "通信层" as CommLayer #ffebee {
+    [stdio管道] as Stdio
+    [WebSocket] as WebSocket
+    [HTTP] as HTTP
+}
+
+' 垂直连接
+Assistant --> Tools
+UI --> Resources
+Tools --> MessageFormat
+Resources --> ErrorHandling
+Prompts --> Auth
+Sampling --> Session
+
+MessageFormat --> JSONRPC
+ErrorHandling --> Serialization
+
+JSONRPC --> Stdio
+Serialization --> WebSocket
+JSONRPC --> HTTP
+
+' 水平关系
+Tools <--> Resources
+MessageFormat <--> ErrorHandling
+Stdio <--> WebSocket
+
+note right of MCPCoreLayer
+  <b>核心职责</b>
+  • 消息路由
+  • 状态管理  
+  • 安全控制
+  • 协议兼容
+end note
+
+@enduml
+
+' 图表4: MCP实体关系图
+@startuml MCP_Entity_Relationship
+!theme plain
+title MCP核心实体关系图
+
+entity "Client (客户端)" as Client {
+    * client_id : String
+    --
+    name : String
+    version : String
+    capabilities : Capabilities
+}
+
+entity "Server (服务器)" as Server {
+    * server_id : String
+    --
+    name : String
+    version : String
+    tools : Tool[]
+    resources : Resource[]
+    prompts : Prompt[]
+}
+
+entity "Tool (工具)" as Tool {
+    * name : String
+    --
+    description : String
+    inputSchema : JSONSchema
+    handler : Function
+}
+
+entity "Resource (资源)" as Resource {
+    * uri : URI
+    --
+    name : String
+    description : String
+    mimeType : String
+    content : Any
+}
+
+entity "Prompt (提示模板)" as Prompt {
+    * name : String
+    --
+    description : String
+    arguments : Argument[]
+    template : String
+}
+
+entity "Message (消息)" as Message {
+    * id : String
+    --
+    method : String
+    params : Object
+    result : Object
+    error : Error
+}
+
+' 关系定义
+Client ||--o{ Message : "发送/接收"
+Server ||--o{ Message : "处理"
+Server ||--o{ Tool : "提供"
+Server ||--o{ Resource : "管理"  
+Server ||--o{ Prompt : "包含"
+
+Tool }o--|| Message : "通过消息调用"
+Resource }o--|| Message : "通过消息访问"
+Prompt }o--|| Message : "通过消息获取"
+
+@enduml
+
+' 图表5: MCP状态机
+@startuml MCP_State_Machine  
+!theme plain
+title MCP连接状态机
+
+[*] --> Disconnected : 初始状态
+
+Disconnected --> Connecting : 启动连接
+Connecting --> Connected : 连接成功
+Connecting --> Disconnected : 连接失败
+
+Connected --> Initializing : 开始初始化
+Initializing --> Ready : 初始化完成
+Initializing --> Error : 初始化失败
+
+Ready --> Processing : 接收请求
+Processing --> Ready : 处理完成
+Processing --> Error : 处理失败
+
+Error --> Ready : 错误恢复
+Error --> Disconnected : 致命错误
+
+Ready --> Disconnected : 主动断开
+Connected --> Disconnected : 连接丢失
+
+note right of Ready
+  <b>就绪状态</b>
+  • 可接收工具调用
+  • 可访问资源
+  • 可获取提示模板
+end note
+
+note right of Processing  
+  <b>处理状态</b>
+  • 执行工具逻辑
+  • 访问外部资源
+  • 返回处理结果
+end note
+
+@enduml
+
+' 图表6: MCP安全模型
+@startuml MCP_Security_Model
+!theme plain
+title MCP安全模型
+
+package "客户端安全层" as ClientSecurity #e8f4f8 {
+    [权限管理] as ClientAuth
+    [请求验证] as ClientValid
+    [数据加密] as ClientCrypto
+}
+
+package "协议安全层" as ProtocolSecurity #fff2e8 {
+    [消息签名] as MessageSign
+    [传输加密] as TransportCrypto
+    [会话管理] as SessionMgmt
+}
+
+package "服务器安全层" as ServerSecurity #e8f8e8 {
+    [访问控制] as AccessControl
+    [资源隔离] as ResourceIsolation
+    [审计日志] as AuditLog
+}
+
+package "外部接口安全" as ExternalSecurity #f8e8e8 {
+    [API密钥管理] as APIKeys
+    [网络防护] as NetworkProtection
+    [数据脱敏] as DataMasking
+}
+
+' 安全流程
+ClientAuth --> MessageSign : "认证令牌"
+ClientValid --> TransportCrypto : "请求校验"
+ClientCrypto --> SessionMgmt : "端到端加密"
+
+MessageSign --> AccessControl : "权限验证"
+TransportCrypto --> ResourceIsolation : "安全传输"
+SessionMgmt --> AuditLog : "会话跟踪"
+
+AccessControl --> APIKeys : "外部认证"
+ResourceIsolation --> NetworkProtection : "网络隔离"
+AuditLog --> DataMasking : "日志脱敏"
+
+note bottom
+  <b>安全原则</b>
+  • 最小权限原则
+  • 深度防御策略
+  • 零信任架构
+  • 数据保护合规
+end note
+
+@enduml
+
+@enduml
