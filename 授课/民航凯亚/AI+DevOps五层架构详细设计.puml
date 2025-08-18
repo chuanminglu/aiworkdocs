@@ -64,6 +64,7 @@ end note
 
 package "第4层：场景应用层" as Layer4 #f3e5f5 {
     component "民航业务场景" as L4_Aviation
+    component "项目管理场景" as L4_ProjectMgmt
     component "行业最佳实践" as L4_Practices
     component "个性化方案" as L4_Personal
 }
@@ -83,6 +84,21 @@ note right of L4_Aviation
   • 多系统集成方案
   • 数据治理策略
   • 智能决策支持
+end note
+
+note right of L4_ProjectMgmt
+  <b>动手实践：使用Deepseek优化航空货运管理系统项目计划</b>
+  • 项目背景：航空货运追踪与调度系统开发
+  • 使用AI工具进行项目范围定义与任务分解
+  • 基于大模型生成项目风险清单与应对措施
+  • AI辅助的项目进度跟踪与状态报告生成
+  
+  <b>精益敏捷开发最佳实践浅析</b>
+  • 精益敏捷开发最佳实践浅析
+  • 大模型驱动的迭代目标设计与验收标准
+  • 智能化Sprint容量规划与工作量配
+  • AI辅助每日例会效率提升
+  • 基于历史数据的迭代速度预测与优化
 end note
 
 note right of L4_Practices
@@ -124,6 +140,7 @@ package "第3层：方法实践层" as Layer3 #fff3e0 {
     component "需求阶段AI赋能" as L3_Req
     component "设计阶段AI赋能" as L3_Design
     component "开发阶段AI赋能" as L3_Dev
+    component "项目管理AI赋能" as L3_PM
     component "测试阶段AI赋能" as L3_Test
     component "部署阶段AI赋能" as L3_Deploy
     component "运维阶段AI赋能" as L3_Ops
@@ -178,6 +195,25 @@ note bottom of L3_Dev
   • 单元测试自动化
   • 边界条件覆盖
   • Mock数据生成
+end note
+
+note bottom of L3_PM
+  <b>AI赋能项目管理</b>
+  • 智能计划与里程碑管理
+  • 大模型驱动的团队协作优化
+  • 基于大模型的项目绩效监控
+  • AI工具项目范围定义与任务分解
+  
+  <b>精益敏捷开发优化</b>
+  • 智能化Sprint容量规划
+  • AI辅助每日例会效率提升
+  • 基于历史数据的迭代速度预测
+  • 大模型驱动的团队协作优化
+  
+  <b>项目风险智能管控</b>
+  • 基于大模型生成项目风险清单
+  • AI辅助项目进度跟踪与状态报告
+  • 智能资源配置与冲突解决
 end note
 
 note bottom of L3_Test
@@ -411,6 +447,14 @@ L3_Design --> L3_Dev : "设计→开发"
 L3_Dev --> L3_Test : "开发→测试"
 L3_Test --> L3_Deploy : "测试→部署"
 L3_Deploy --> L3_Ops : "部署→运维"
+
+' 项目管理贯穿全流程
+L3_PM ..> L3_Req : "项目管理"
+L3_PM ..> L3_Design : "项目管理"
+L3_PM ..> L3_Dev : "项目管理"
+L3_PM ..> L3_Test : "项目管理"
+L3_PM ..> L3_Deploy : "项目管理"
+L3_PM ..> L3_Ops : "项目管理"
 
 ' 添加整体说明
 note left of Layer5
