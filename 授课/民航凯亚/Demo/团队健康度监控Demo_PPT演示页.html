@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>团队健康度监控情感分析Demo - 项目介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .slide {
+            width: 1200px;
+            height: 850px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: grid;
+            grid-template-rows: 100px 1fr;
+            overflow: visible;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2196F3 0%, #009688 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            overflow: visible;
+        }
+
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #2196F3;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2196F3;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tech-item {
+            background: #2196F3;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .flow-diagram {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .flow-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #2196F3;
+        }
+
+        .step-icon {
+            width: 45px;
+            height: 45px;
+            background: #2196F3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-size: 18px;
+            color: white;
+        }
+
+        .step-text {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: #e3f2fd;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        .value-points {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .value-points li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .value-points li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .demo-preview {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .dashboard-mockup {
+            background: #f5f5f5;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .dashboard-metric {
+            background: white;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .dashboard-score {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .score-excellent { color: #4CAF50; }
+        .score-good { color: #2196F3; }
+        .score-warning { color: #FF9800; }
+        .score-danger { color: #f44336; }
+
+        .dashboard-label {
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="header">
+            <div>
+                <div class="title">🎯 TeamHealth Monitor</div>
+                <div class="subtitle">团队健康度监控情感分析演示系统</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 18px;">AI赋能敏捷团队管理</div>
+                <div style="font-size: 14px; opacity: 0.8;">3小时快速实现MVP</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="left-panel">
+                <!-- 项目背景与痛点 -->
+                <div class="section">
+                    <div class="section-title">
+                        🎯 项目背景与痛点
+                    </div>
+                    <div class="section-content">
+                        <strong>敏捷团队管理挑战：</strong>
+                        <ul class="value-points">
+                            <li>团队情绪状态难以量化监控</li>
+                            <li>沟通问题往往发现太晚</li>
+                            <li>缺乏科学的团队健康度评估工具</li>
+                            <li>依赖主观判断，缺乏数据支撑</li>
+                        </ul>
+                        <div style="margin-top: 15px; padding: 15px; background: #e3f2fd; border-radius: 8px;">
+                            <strong style="color: #1976d2;">💡 核心价值：</strong>
+                            通过<span class="highlight">AI情感分析</span>技术，将团队沟通数据转化为可视化健康度指标，实现<span class="highlight">预防式管理</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 核心功能与指标 -->
+                <div class="section">
+                    <div class="section-title">
+                        📊 四大核心指标
+                    </div>
+                    <div class="section-content">
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value score-good">7.2</div>
+                                <div class="metric-label">整体情感得分</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value score-good">85%</div>
+                                <div class="metric-label">沟通活跃度</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value score-excellent">8.1</div>
+                                <div class="metric-label">协作意愿指数</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value score-excellent">3.2</div>
+                                <div class="metric-label">压力水平</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                            ⚡ <strong>智能预警：</strong>自动识别风险点，提供干预建议<br>
+                            📈 <strong>趋势分析：</strong>7天情感变化趋势可视化<br>
+                            👥 <strong>个人监控：</strong>团队成员健康度个性化跟踪
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <!-- 技术实现思路 -->
+                <div class="section">
+                    <div class="section-title">
+                        🔧 技术实现架构
+                    </div>
+                    <div class="section-content">
+                        <div class="flow-diagram">
+                            <div class="flow-steps">
+                                <div class="flow-step">
+                                    <div class="step-icon">💬</div>
+                                    <div class="step-text">数据采集<br>消息/邮件</div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">🧠</div>
+                                    <div class="step-text">情感分析<br>词典匹配</div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">📊</div>
+                                    <div class="step-text">指标计算<br>加权评分</div>
+                                </div>
+                                <div class="flow-step">
+                                    <div class="step-icon">🖥️</div>
+                                    <div class="step-text">可视化<br>实时仪表板</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-stack">
+                            <div class="tech-item">Python + Tkinter</div>
+                            <div class="tech-item">Jieba分词</div>
+                            <div class="tech-item">SQLite数据库</div>
+                            <div class="tech-item">Matplotlib图表</div>
+                            <div class="tech-item">词典匹配算法</div>
+                        </div>
+                        
+                        <div style="margin-top: 10px; padding: 8px; background: #f0f8ff; border-radius: 6px; font-size: 12px;">
+                            <strong>💡 算法亮点：</strong> 基于中文情感词典的<span class="highlight">轻量级实现</span>，准确率达到85%+，响应时间<500ms
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo演示界面 -->
+                <div class="section">
+                    <div class="section-title">
+                        🖥️ Demo演示界面
+                    </div>
+                    <div class="section-content">
+                        <div class="demo-preview">
+                            <div class="dashboard-mockup">
+                                <div class="dashboard-header">
+                                    <span>📊 团队健康度概览</span>
+                                    <span style="font-size: 14px; color: #666;">2024-03-15 14:30</span>
+                                </div>
+                                <div class="dashboard-metrics">
+                                    <div class="dashboard-metric">
+                                        <div class="dashboard-score score-good">7.2/10</div>
+                                        <div class="dashboard-label">整体情感 😊</div>
+                                    </div>
+                                    <div class="dashboard-metric">
+                                        <div class="dashboard-score score-good">85%</div>
+                                        <div class="dashboard-label">沟通活跃 📈</div>
+                                    </div>
+                                    <div class="dashboard-metric">
+                                        <div class="dashboard-score score-excellent">8.1/10</div>
+                                        <div class="dashboard-label">协作意愿 🤝</div>
+                                    </div>
+                                    <div class="dashboard-metric">
+                                        <div class="dashboard-score score-excellent">3.2/10</div>
+                                        <div class="dashboard-label">压力水平 😌</div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 12px; padding: 8px; background: #e8f5e8; border-radius: 6px; text-align: left;">
+                                    <strong style="color: #4CAF50;">✅ 当前状态：团队健康</strong><br>
+                                    <span style="font-size: 11px; color: #666;">
+                                        • 情感得分良好，团队氛围积极<br>
+                                        • 沟通活跃，协作意愿强<br>
+                                        • 压力水平适中，无需干预
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 10px; display: flex; gap: 8px; justify-content: center; align-items: center;">
+                                <div style="padding: 6px 12px; background: #4CAF50; color: white; border-radius: 15px; font-size: 11px;">
+                                    🎯 演示场景A：健康状态
+                                </div>
+                                <div style="padding: 6px 12px; background: #FF9800; color: white; border-radius: 15px; font-size: 11px;">
+                                    ⚠️ 演示场景B：压力预警
+                                </div>
+                                <div style="padding: 6px 12px; background: #2196F3; color: white; border-radius: 15px; font-size: 11px;">
+                                    📈 演示场景C：恢复改善
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的页面加载完成提示
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('团队健康度监控Demo页面加载完成');
+        });
+    </script>
+</body>
+</html>

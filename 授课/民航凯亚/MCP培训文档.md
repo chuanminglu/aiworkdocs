@@ -1,3 +1,5 @@
+**z**
+
 # Model Context Protocol (MCP) 培训文档
 
 ## 📋 目录
@@ -489,26 +491,26 @@ package "src/" {
         [MessageHandler] as Handler
         [ErrorHandler] as Error
     }
-    
+  
     package "tools/" {
         [ToolRegistry] as Registry
         [DatabaseTool] as DBTool
         [FileTool] as FileTool
         [APItool] as APITool
     }
-    
+  
     package "resources/" {
         [ResourceManager] as ResMgr
         [FileResource] as FileRes
         [DatabaseResource] as DBRes
         [WebResource] as WebRes
     }
-    
+  
     package "auth/" {
         [AuthProvider] as Auth
         [PermissionChecker] as Perm
     }
-    
+  
     package "utils/" {
         [Logger] as Log
         [Config] as Config
@@ -831,21 +833,22 @@ end note
 ### 学习路径建议
 
 1. **基础阶段** (1-2周)
+
    - 理解MCP概念和架构
    - 熟悉JSON-RPC协议
    - 掌握基本配置方法
+2. **实践阶段** (2-3周)
 
-2. **实践阶段** (2-3周)  
    - 部署现有MCP服务器
    - 开发简单的自定义工具
    - 集成到现有工作流程
-
 3. **高级阶段** (3-4周)
+
    - 开发复杂MCP服务器
    - 性能优化和故障排查
    - 安全配置和合规要求
-
 4. **专家阶段** (持续学习)
+
    - 架构设计和最佳实践
    - 团队培训和知识分享
    - 社区贡献和标准制定
@@ -859,7 +862,7 @@ end note
 
 ---
 
-*培训文档版本*: v1.0  
-*适用对象*: 技术团队、开发工程师、系统架构师  
-*培训时长*: 8-12周 (根据基础调整)  
+*培训文档版本*: v1.0
+*适用对象*: 技术团队、开发工程师、系统架构师
+*培训时长*: 8-12周 (根据基础调整)
 *更新周期*: 每月更新一次

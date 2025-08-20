@@ -1,0 +1,111 @@
+@startuml 团队健康度监控系统架构
+!theme materia
+skinparam defaultFontSize 12
+skinparam packageFontSize 14
+skinparam componentStyle rectangle
+
+title TeamHealth Monitor - 系统技术架构图
+
+package "🖥️ 表示层 (Presentation Layer)" {
+    [主界面] as MainUI
+    [仪表板组件] as Dashboard
+    [图表组件] as Charts
+    [预警组件] as Alerts
+    
+    MainUI --> Dashboard
+    MainUI --> Charts  
+    MainUI --> Alerts
+}
+
+package "💼 业务逻辑层 (Business Logic Layer)" {
+    [情感分析引擎] as SentimentEngine
+    [指标计算器] as MetricsCalculator
+    [预警系统] as AlertSystem
+    [数据模拟器] as DataSimulator
+    
+    SentimentEngine --> MetricsCalculator
+    MetricsCalculator --> AlertSystem
+    DataSimulator --> SentimentEngine
+}
+
+package "📊 数据访问层 (Data Access Layer)" {
+    [数据库管理器] as DatabaseManager
+    [消息处理器] as MessageProcessor
+    [配置管理器] as ConfigManager
+    
+    MessageProcessor --> DatabaseManager
+}
+
+package "💾 数据存储层 (Data Storage Layer)" {
+    database "SQLite数据库" as SQLiteDB {
+        [messages表] as MessagesTable
+        [analysis表] as AnalysisTable  
+        [metrics表] as MetricsTable
+        [alerts表] as AlertsTable
+    }
+    
+    file "情感词典" as SentimentDict
+    file "消息模板" as MessageTemplates
+    file "配置文件" as ConfigFiles
+}
+
+package "🛠️ 工具层 (Utility Layer)" {
+    [中文分词器] as JiebaTokenizer
+    [时间处理器] as TimeProcessor
+    [日志记录器] as Logger
+    [主题管理器] as ThemeManager
+}
+
+' 垂直依赖关系
+Dashboard --> MetricsCalculator : 获取实时指标
+Charts --> MetricsCalculator : 获取历史数据
+Alerts --> AlertSystem : 获取预警信息
+
+SentimentEngine --> JiebaTokenizer : 文本分词
+SentimentEngine --> SentimentDict : 词典查询
+MetricsCalculator --> TimeProcessor : 时间计算
+AlertSystem --> Logger : 记录预警日志
+
+DatabaseManager --> SQLiteDB : 数据CRUD
+MessageProcessor --> MessageTemplates : 模拟数据生成
+ConfigManager --> ConfigFiles : 配置读取
+
+MainUI --> ThemeManager : 界面主题
+
+note top of MainUI
+    **UI框架**: Tkinter
+    **图表库**: Matplotlib
+    **主题**: Materia Design
+end note
+
+note top of SentimentEngine  
+    **核心算法**: 词典匹配 + 权重计算
+    **分词工具**: jieba
+    **处理速度**: 1000条/秒
+end note
+
+note top of SQLiteDB
+    **数据库**: SQLite 3.x
+    **存储方式**: 本地文件
+    **数据大小**: < 100MB
+end note
+
+note bottom of DataSimulator
+    **场景支持**: 健康/压力/恢复
+    **数据量**: 100-140条/天
+    **真实度**: 基于模板随机生成
+end note
+
+' 数据流向
+DataSimulator ..> MessageProcessor : 生成模拟消息
+MessageProcessor ..> DatabaseManager : 存储消息数据
+DatabaseManager ..> SentimentEngine : 读取消息
+SentimentEngine ..> MetricsCalculator : 分析结果
+MetricsCalculator ..> Dashboard : 指标数据
+
+' 配置流向  
+ConfigManager ..> SentimentEngine : 词典配置
+ConfigManager ..> MetricsCalculator : 权重配置
+ConfigManager ..> AlertSystem : 预警阈值
+
+@enduml

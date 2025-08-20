@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI赋能精益敏捷全景对比表</title>
+    <style>
+        :root {
+            /* Materia Theme Colors */
+            --primary-blue: #2196F3;
+            --primary-teal: #009688;
+            --primary-purple: #673AB7;
+            --surface: #ffffff;
+            --surface-secondary: #f5f5f5;
+            --surface-tertiary: #eeeeee;
+            --text-primary: #212121;
+            --text-secondary: #757575;
+            --text-muted: #9e9e9e;
+            --border: #e0e0e0;
+            --border-light: #f5f5f5;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --info: #2196F3;
+            --error: #f44336;
+            --accent: #FF5722;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            --shadow-md: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            --shadow-lg: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 8px;
+            --radius-xl: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+            min-height: 100vh;
+            padding: 24px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: 48px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 48px;
+            letter-spacing: -0.025em;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-teal));
+            border-radius: 2px;
+        }
+
+        .table-container {
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 48px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            font-family: 'Microsoft YaHei', '微软雅黑', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        thead {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-teal));
+            color: white;
+        }
+
+        th {
+            padding: 20px 16px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-align: left;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Microsoft YaHei', '微软雅黑', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        th:last-child {
+            border-right: none;
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        tbody tr:hover {
+            background: var(--surface-secondary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--surface-tertiary);
+        }
+
+        tbody tr:nth-child(even):hover {
+            background: var(--surface-secondary);
+        }
+
+        td {
+            padding: 18px 16px;
+            border-right: 1px solid var(--border-light);
+            vertical-align: top;
+            font-size: 0.875rem;
+            font-family: 'Microsoft YaHei', '微软雅黑', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        .dimension-cell {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb) !important;
+            font-weight: 600;
+            color: var(--primary-blue);
+            text-align: center;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .theory-cell {
+            background: #f3e5f5 !important;
+            font-weight: 500;
+            color: var(--primary-purple);
+        }
+
+        .challenge-cell {
+            background: #fff3e0 !important;
+            color: #e65100;
+            border-left: 3px solid var(--warning);
+        }
+
+        .solution-cell {
+            background: #e8f5e8 !important;
+            color: #2e7d32;
+            border-left: 3px solid var(--success);
+        }
+
+        .tools-cell {
+            background: #fafafa !important;
+            color: var(--text-secondary);
+            font-family: 'Microsoft YaHei', '微软雅黑', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .emoji {
+            font-size: 1.25em;
+            margin-right: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-left: 4px solid var(--primary-blue);
+            padding: 24px;
+            margin: 32px 0;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .highlight-box h3 {
+            color: var(--primary-blue);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .highlight-box p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .tech-tools-section {
+            margin-top: 64px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            text-align: center;
+            position: relative;
+            letter-spacing: -0.025em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-teal));
+            border-radius: 2px;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        /* 标签样式 */
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin: 2px;
+        }
+
+        .tag-blue {
+            background: #e3f2fd;
+            color: var(--primary-blue);
+        }
+
+        .tag-green {
+            background: #e8f5e8;
+            color: var(--success);
+        }
+
+        .tag-yellow {
+            background: #fff3e0;
+            color: var(--warning);
+        }
+
+        /* 按钮样式 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-teal));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 32px;
+            }
+            
+            .title {
+                font-size: 2.25rem;
+            }
+            
+            th, td {
+                padding: 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            
+            .container {
+                padding: 24px;
+            }
+            
+            .title {
+                font-size: 1.75rem;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.75rem;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+
+        /* 打印样式 */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                background: white;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            thead {
+                background: #f8fafc !important;
+                color: #000 !important;
+            }
+            
+            .title {
+                color: #000 !important;
+            }
+
+            .btn {
+                display: none;
+            }
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .table-container {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* 滚动条样式 */
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: var(--surface-tertiary);
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">AI赋能精益敏捷全景对比表</h1>
+        
+        <!-- 主要对比表 -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 18%;">赋能维度</th>
+                        <th style="width: 12%;">理论基础</th>
+                        <th style="width: 25%;">传统挑战</th>
+                        <th style="width: 25%;">AI赋能解决方案</th>
+                        <th style="width: 20%;">核心工具</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 敏捷价值观 -->
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🤝</span>敏捷价值观1<br>个体协作胜过流程工具</td>
+                        <td class="theory-cell">敏捷宣言核心价值观</td>
+                        <td class="challenge-cell">跨地域沟通困难<br>信息记录易丢失<br>团队状态难量化</td>
+                        <td class="solution-cell">智能协作助手<br>多语言实时翻译<br>团队健康度监控</td>
+                        <td class="tools-cell">GPT-4会议助手<br>情感分析工具<br>协作网络分析</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">📱</span>敏捷价值观2<br>工作软件胜过详尽文档</td>
+                        <td class="theory-cell">敏捷宣言核心价值观</td>
+                        <td class="challenge-cell">文档代码不同步<br>需求理解困难<br>维护成本高</td>
+                        <td class="solution-cell">活文档自动生成<br>需求智能分析<br>测试用例自动化</td>
+                        <td class="tools-cell">代码文档生成AI<br>需求分析NLP<br>自动化测试AI</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🤝</span>敏捷价值观3<br>客户合作胜过合同谈判</td>
+                        <td class="theory-cell">敏捷宣言核心价值观</td>
+                        <td class="challenge-cell">客户反馈分散<br>需求变更评估难<br>价值量化困难</td>
+                        <td class="solution-cell">客户洞察智能化<br>反馈情感分析<br>价值交付优化</td>
+                        <td class="tools-cell">用户行为分析AI<br>情感分析引擎<br>价值评估模型</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">⚡</span>敏捷价值观4<br>响应变化胜过遵循计划</td>
+                        <td class="theory-cell">敏捷宣言核心价值观</td>
+                        <td class="challenge-cell">变化预测困难<br>响应速度慢<br>计划调整无据</td>
+                        <td class="solution-cell">变化预测智能化<br>市场趋势分析<br>适应能力增强</td>
+                        <td class="tools-cell">趋势分析AI<br>预测模型<br>决策支持系统</td>
+                    </tr>
+                    
+                    <!-- Scrum三大支柱 -->
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🔍</span>Scrum支柱1<br>透明(Transparency)</td>
+                        <td class="theory-cell">Scrum框架三大支柱</td>
+                        <td class="challenge-cell">信息更新滞后<br>进度不准确<br>状态难追踪</td>
+                        <td class="solution-cell">实时进度分析<br>自动状态更新<br>智能仪表板</td>
+                        <td class="tools-cell">GitHub Analytics<br>Jira Intelligence<br>自定义仪表板</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🔎</span>Scrum支柱2<br>检视(Inspection)</td>
+                        <td class="theory-cell">Scrum框架三大支柱</td>
+                        <td class="challenge-cell">人工分析有限<br>问题发现滞后<br>改进方向不明</td>
+                        <td class="solution-cell">智能回顾分析<br>模式识别预警<br>改进建议生成</td>
+                        <td class="tools-cell">Sprint分析AI<br>代码质量AI<br>团队协作分析</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">⚡</span>Scrum支柱3<br>适应(Adaptation)</td>
+                        <td class="theory-cell">Scrum框架三大支柱</td>
+                        <td class="challenge-cell">计划调整慢<br>决策依赖经验<br>变更影响难估</td>
+                        <td class="solution-cell">智能Sprint规划<br>变更影响分析<br>适应策略推荐</td>
+                        <td class="tools-cell">规划算法AI<br>影响分析引擎<br>决策支持系统</td>
+                    </tr>
+                    
+                    <!-- Scrum三大角色 -->
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🎯</span>Product Owner<br>产品负责人</td>
+                        <td class="theory-cell">Scrum三大角色</td>
+                        <td class="challenge-cell">市场分析困难<br>优先级排序主观<br>价值评估模糊</td>
+                        <td class="solution-cell">市场趋势AI分析<br>智能优先级排序<br>价值评估模型</td>
+                        <td class="tools-cell">市场分析AI<br>优先级算法<br>价值评估工具</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🏃‍♂️</span>Scrum Master<br>敏捷教练</td>
+                        <td class="theory-cell">Scrum三大角色</td>
+                        <td class="challenge-cell">团队问题识别难<br>障碍解决滞后<br>改进效果难评估</td>
+                        <td class="solution-cell">团队健康监控<br>障碍智能识别<br>改进效果追踪</td>
+                        <td class="tools-cell">团队分析AI<br>障碍检测系统<br>效果评估工具</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">👩‍💻</span>Development Team<br>开发团队</td>
+                        <td class="theory-cell">Scrum三大角色</td>
+                        <td class="challenge-cell">技术决策主观<br>代码质量不稳定<br>效率提升有限</td>
+                        <td class="solution-cell">技术决策AI支持<br>代码质量智能审核<br>开发效率AI提升</td>
+                        <td class="tools-cell">GitHub Copilot<br>代码审查AI<br>智能重构工具</td>
+                    </tr>
+                    
+                    <!-- 精益原则 -->
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🗑️</span>精益浪费消除<br>七大浪费识别</td>
+                        <td class="theory-cell">精益思想核心原则</td>
+                        <td class="challenge-cell">浪费识别靠经验<br>根因分析困难<br>改进效果难量化</td>
+                        <td class="solution-cell">AI智能浪费识别<br>根因智能分析<br>改进效果监控</td>
+                        <td class="tools-cell">浪费检测AI<br>根因分析引擎<br>效果监控系统</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🏃‍♂️</span>精益快速交付<br>价值流优化</td>
+                        <td class="theory-cell">精益思想核心原则</td>
+                        <td class="challenge-cell">瓶颈识别滞后<br>流程优化困难<br>周期时间难预测</td>
+                        <td class="solution-cell">瓶颈智能检测<br>流程AI优化<br>周期时间预测</td>
+                        <td class="tools-cell">价值流分析AI<br>流程优化引擎<br>预测模型</td>
+                    </tr>
+                    
+                    <!-- 看板方法 -->
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">📋</span>看板可视化<br>工作流管理</td>
+                        <td class="theory-cell">看板方法核心实践</td>
+                        <td class="challenge-cell">手工维护看板<br>流动效率不明<br>WIP设置凭经验</td>
+                        <td class="solution-cell">智能看板更新<br>流动效率分析<br>WIP智能推荐</td>
+                        <td class="tools-cell">看板智能化系统<br>流量分析AI<br>WIP优化算法</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">📈</span>看板度量管理<br>累计流图分析</td>
+                        <td class="theory-cell">看板方法核心实践</td>
+                        <td class="challenge-cell">数据收集困难<br>模式识别有限<br>预测能力不足</td>
+                        <td class="solution-cell">数据自动收集<br>流动模式AI识别<br>流量预测建模</td>
+                        <td class="tools-cell">流量监控系统<br>模式识别AI<br>预测分析引擎</td>
+                    </tr>
+                    
+                    <!-- 企业框架 -->
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">🏢</span>SAFe企业敏捷<br>规模化协调</td>
+                        <td class="theory-cell">企业敏捷框架</td>
+                        <td class="challenge-cell">多团队协调难<br>依赖管理复杂<br>价值流不清晰</td>
+                        <td class="solution-cell">PI规划AI辅助<br>依赖智能管理<br>价值流AI识别</td>
+                        <td class="tools-cell">企业敏捷AI平台<br>依赖分析工具<br>价值流映射AI</td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="dimension-cell"><span class="emoji">⏱️</span>DSDM时间盒<br>动态开发管理</td>
+                        <td class="theory-cell">动态开发方法</td>
+                        <td class="challenge-cell">时间盒容量难估<br>优先级调整频繁<br>质量控制困难</td>
+                        <td class="solution-cell">容量智能评估<br>优先级AI排序<br>质量实时监控</td>
+                        <td class="tools-cell">容量评估AI<br>优先级算法<br>质量监控系统</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- AI工具生态重构对比表 -->
+        <div class="tech-tools-section">
+            <h2 class="section-title">🛠️ AI工具生态重构对比表</h2>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">工具层级</th>
+                            <th style="width: 20%;">传统敏捷工具</th>
+                            <th style="width: 35%;">AI增强能力</th>
+                            <th style="width: 30%;">推荐AI工具组合</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dimension-cell"><span class="emoji">📋</span>需求管理</td>
+                            <td class="theory-cell">Jira, Azure DevOps, 禅道</td>
+                            <td class="solution-cell">需求智能分析<br>冲突自动识别<br>故事智能生成<br>验收标准检查</td>
+                            <td class="tools-cell">Jira + GPT-4 API<br>+ 自定义AI插件<br>+ 需求分析工具</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="dimension-cell"><span class="emoji">💻</span>开发协作</td>
+                            <td class="theory-cell">Git, GitHub, GitLab</td>
+                            <td class="solution-cell">代码智能生成<br>AI代码审查<br>冲突解决建议<br>提交信息生成</td>
+                            <td class="tools-cell">GitHub + Copilot<br>+ CodeRabbit<br>+ Cursor编辑器</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="dimension-cell"><span class="emoji">🧪</span>测试质量</td>
+                            <td class="theory-cell">Jenkins, SonarQube, Selenium</td>
+                            <td class="solution-cell">测试用例自动生成<br>缺陷智能预测<br>覆盖率AI优化<br>性能分析AI</td>
+                            <td class="tools-cell">Jenkins + Testim<br>+ Mabl AI<br>+ 智能测试平台</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="dimension-cell"><span class="emoji">📊</span>监控运维</td>
+                            <td class="theory-cell">Prometheus, Grafana, ELK</td>
+                            <td class="solution-cell">AIOps智能监控<br>异常检测AI<br>故障预测预警<br>自动化决策</td>
+                            <td class="tools-cell">DataDog + PagerDuty<br>+ 自定义AI模型<br>+ 智能运维平台</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="dimension-cell"><span class="emoji">📈</span>项目管理</td>
+                            <td class="theory-cell">MS Project, 甘特图工具</td>
+                            <td class="solution-cell">智能项目规划<br>风险预测预警<br>资源优化配置<br>进度智能监控</td>
+                            <td class="tools-cell">智能项目管理平台<br>+ AI规划算法<br>+ 风险预测模型</td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="dimension-cell"><span class="emoji">🎯</span>产品管理</td>
+                            <td class="theory-cell">ProductPlan, Roadmunk</td>
+                            <td class="solution-cell">产品路线图AI规划<br>用户反馈智能分析<br>市场趋势预测<br>功能价值评估</td>
+                            <td class="tools-cell">智能产品管理系统<br>+ 用户分析AI<br>+ 市场预测工具</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>💡 核心理念</h3>
+            <p><strong>AI不是要替代敏捷，而是要放大敏捷的价值！</strong></p>
+            <p>让个体协作更智能、工作软件更优质、客户合作更深入、响应变化更快速。</p>
+        </div>
+    </div>
+
+    <script>
+        // 添加高级交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化动画
+            const container = document.querySelector('.container');
+            const tables = document.querySelectorAll('.table-container');
+            
+            // 延迟显示表格，创建层叠效果
+            tables.forEach((table, index) => {
+                table.style.opacity = '0';
+                table.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    table.style.transition = 'all 0.6s ease';
+                    table.style.opacity = '1';
+                    table.style.transform = 'translateY(0)';
+                }, 200 + index * 100);
+            });
+
+            // 表格行交互
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    // 移除其他行的高亮
+                    tableRows.forEach(r => {
+                        r.classList.remove('selected');
+                        r.style.background = '';
+                        r.style.boxShadow = '';
+                    });
+                    
+                    // 高亮当前行
+                    this.classList.add('selected');
+                    this.style.background = 'linear-gradient(90deg, #e3f2fd, #bbdefb)';
+                    this.style.boxShadow = '0 4px 12px rgba(33, 150, 243, 0.15)';
+                    
+                    // 3秒后恢复
+                    setTimeout(() => {
+                        this.classList.remove('selected');
+                        this.style.background = '';
+                        this.style.boxShadow = '';
+                    }, 3000);
+                });
+            });
+
+            // 创建现代化的打印/导出按钮
+            const actionBar = document.createElement('div');
+            actionBar.style.cssText = `
+                position: fixed;
+                top: 24px;
+                right: 24px;
+                display: flex;
+                gap: 12px;
+                z-index: 1000;
+            `;
+
+            // 打印按钮
+            const printBtn = document.createElement('button');
+            printBtn.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6,9 6,2 18,2 18,9"></polyline>
+                    <path d="M6,18H4a2,2,0,0,1-2-2v-5a2,2,0,0,1,2-2H20a2,2,0,0,1,2,2v5a2,2,0,0,1-2,2H18"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                打印
+            `;
+            printBtn.className = 'btn btn-primary';
+            printBtn.addEventListener('click', () => window.print());
+
+            // 全屏按钮
+            const fullscreenBtn = document.createElement('button');
+            fullscreenBtn.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,3 21,3 21,9"></polyline>
+                    <polyline points="9,21 3,21 3,15"></polyline>
+                    <line x1="21" y1="3" x2="14" y2="10"></line>
+                    <line x1="3" y1="21" x2="10" y2="14"></line>
+                </svg>
+                全屏
+            `;
+            fullscreenBtn.className = 'btn btn-primary';
+            fullscreenBtn.addEventListener('click', () => {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            });
+
+            actionBar.appendChild(printBtn);
+            actionBar.appendChild(fullscreenBtn);
+            document.body.appendChild(actionBar);
+
+            // 表格内容搜索功能
+            const searchContainer = document.createElement('div');
+            searchContainer.style.cssText = `
+                position: sticky;
+                top: 0;
+                background: rgba(245, 245, 245, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 16px 0;
+                margin-bottom: 24px;
+                border-radius: 12px;
+                z-index: 100;
+            `;
+
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = '🔍 搜索表格内容...';
+            searchInput.style.cssText = `
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 0.875rem;
+                outline: none;
+                transition: all 0.2s ease;
+            `;
+
+            searchInput.addEventListener('focus', function() {
+                this.style.borderColor = '#2196F3';
+                this.style.boxShadow = '0 0 0 3px rgba(33, 150, 243, 0.1)';
+            });
+
+            searchInput.addEventListener('blur', function() {
+                this.style.borderColor = '#e0e0e0';
+                this.style.boxShadow = 'none';
+            });
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                tableRows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    if (rowText.includes(searchTerm)) {
+                        row.style.display = '';
+                        // 高亮匹配的文本
+                        if (searchTerm) {
+                            row.style.background = 'rgba(34, 197, 94, 0.1)';
+                        }
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // 如果搜索为空，恢复所有行
+                if (!searchTerm) {
+                    tableRows.forEach(row => {
+                        row.style.display = '';
+                        row.style.background = '';
+                    });
+                }
+            });
+
+            searchContainer.appendChild(searchInput);
+            
+            // 在第一个表格前插入搜索框
+            const firstTable = document.querySelector('.table-container');
+            firstTable.parentNode.insertBefore(searchContainer, firstTable);
+
+            // 添加统计信息
+            const statsDiv = document.createElement('div');
+            statsDiv.style.cssText = `
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 24px;
+                padding: 16px;
+                background: linear-gradient(90deg, #e3f2fd, #bbdefb);
+                border-radius: 12px;
+                border-left: 4px solid #2196F3;
+            `;
+            
+            statsDiv.innerHTML = `
+                <div>
+                    <span style="font-weight: 600; color: #1976d2;">📊 数据概览:</span>
+                    <span style="margin-left: 12px; color: #757575;">主表格 ${document.querySelectorAll('tbody tr').length - 6} 项 | 工具表格 6 项</span>
+                </div>
+                <div style="color: #9e9e9e; font-size: 0.875rem;">
+                    最后更新: ${new Date().toLocaleDateString('zh-CN')}
+                </div>
+            `;
+
+            firstTable.parentNode.insertBefore(statsDiv, firstTable);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+@startuml AI赋能精益敏捷架构图
+!theme materia     
+skinparam packageStyle rectangle
+skinparam defaultFontSize 20
+skinparam packageFontSize 20
+skinparam componentFontSize 20
+
+package "核心价值层" as Core {
+    [让透明更透明] as transparency
+    [让检视更深入] as inspection  
+    [让适应更快速] as adaptation 
+    [让协作更智能] as collaboration
+}
+
+package "AI赋能维度层" as Dimension {
+    package "角色赋能" {
+        [Product Owner] as PO
+        [Scrum Master] as SM
+        [Development Team] as DEV
+    }
+    
+    package "流程赋能" {
+        [Scrum框架] as SCRUM
+        [看板方法] as KANBAN
+        [价值流优化] as VALUESTREAM
+    }
+    
+    package "工具赋能" {
+        [开发工具] as DEVTOOLS
+        [协作工具] as COLLABTOOLS
+        [管理工具] as MGMTTOOLS
+    }
+    
+    package "决策赋能" {
+        [数据分析] as DATAANALYSIS
+        [风险预警] as RISKWARNING
+        [智能建议] as AISUGGESTION
+    }
+}
+
+package "AI技术能力层" as Tech {
+    package "数据智能" {
+        [实时数据采集] as datacollect
+        [多维数据分析] as dataanalysis
+        [预测模型建模] as modeling
+        [可视化呈现] as visualization
+        
+        datacollect -right-> dataanalysis
+        datacollect -down-> modeling
+        modeling -right-> visualization
+    }
+    
+    package "认知智能" {
+        [NLP文本理解] as nlp
+        [模式识别分析] as pattern
+        [智能推荐系统] as recommendation
+        [决策支持系统] as decision
+        
+        nlp -right-> pattern
+        nlp -down-> recommendation
+        recommendation -right-> decision
+    }
+    
+    package "自动化智能" {
+        [CI/CD自动化] as cicd
+        [测试用例生成] as testgen
+        [代码质量检查] as codecheck
+        [部署流程优化] as deployment
+        
+        cicd -right-> testgen
+        cicd -down-> codecheck
+        codecheck -right-> deployment
+    }
+}
+
+package "基础设施层" as Infra {
+    database "云计算平台" as Cloud
+    storage "大语言模型" as LLM
+    node "AI开发框架" as MLFramework
+}
+
+' 关系连线
+transparency --> PO
+inspection --> SCRUM
+adaptation --> DEVTOOLS
+collaboration --> DATAANALYSIS
+
+PO --> nlp
+SCRUM --> datacollect
+DEVTOOLS --> cicd
+DATAANALYSIS --> dataanalysis
+
+datacollect --> Cloud
+nlp --> LLM
+cicd --> MLFramework
+
+note top of Core : AI不是要替代敏捷，而是要放大敏捷的价值！
+note bottom of Infra : 效率提升50-80%，质量提升40-70%，ROI提升15-35倍
+
+@enduml
