@@ -62,5 +62,24 @@
     
     // 语言服务器优化
     "python.analysis.autoImportCompletions": false,
-    "python.analysis.indexing": false
+    "python.analysis.indexing": false,
+    
+    // 项目级别MCP配置（仅对当前工作区生效）
+    "github.copilot.chat.experimental.mcpServers": {
+        "figma-context": {
+            "command": "npx",
+            "args": ["-y", "@glips/figma-context-mcp"],
+            "env": {
+                "FIGMA_ACCESS_TOKEN": "figd_你的figma_token_填写在这里"
+            }
+        },
+        "context7": {
+            "command": "npx", 
+            "args": ["-y", "@context7/mcp-server"]
+        },
+        "fetch": {
+            "command": "npx",
+            "args": ["-y", "@modelcontextprotocol/server-fetch"]
+        }
+    }
 }

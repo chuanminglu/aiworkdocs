@@ -1,0 +1,80 @@
+@startuml Self_Assessment_Reflection_Area
+!theme plain
+skinparam backgroundColor #ffffff
+skinparam rectangle {
+    BackgroundColor #d4edda
+    BorderColor #155724
+    FontSize 11
+}
+
+title 自我评估反思区设计
+
+rectangle "能力自评量表" as assessment {
+    class "五维能力评估" as abilities {
+        AI认知理解：   ■■■■■□□□□□ (5分)
+        工具操作熟练： ■■■■■■■□□□ (7分)
+        编程实践能力： ■■■■■■□□□□ (6分)
+        问题解决能力： ■■■■■■■■□□ (8分)
+        团队协作能力： ■■■■■■■■■□ (9分)
+        ==
+        总体能力指数：7.0分
+    }
+}
+
+rectangle "反思日志" as journal {
+    class "每日反思记录" as daily {
+        今天最大的收获是什么？
+        ----------------------
+        掌握了GitHub Copilot的
+        基本使用方法，能够生成
+        简单的代码片段
+        
+        遇到的最大困难是什么？
+        ----------------------
+        提示词工程还不够熟练，
+        生成的代码质量不稳定
+        
+        明天的学习重点是什么？
+        ----------------------
+        深入学习提示词优化技巧，
+        练习复杂场景的代码生成
+        
+        想要深入研究的话题？
+        ----------------------
+        MCP工具链的企业级应用
+    }
+}
+
+rectangle "学习方式偏好" as preferences {
+    class "偏好设置" as style {
+        ■ 理论学习  ■ 实践操作
+        ■ 小组讨论  □ 个人探索
+        ■ 老师讲解  ■ 同伴协作
+        --
+        最有效的学习方式：
+        实践操作 + 小组讨论
+        
+        需要改进的方面：
+        增强独立思考能力
+    }
+}
+
+assessment -down-> journal : "评估驱动反思"
+journal -down-> preferences : "反思指导方式"
+
+note right of assessment
+    <b>评分标准：</b>
+    1-2分：初学者水平
+    3-4分：基础掌握
+    5-6分：熟练应用  
+    7-8分：高级应用
+    9-10分：专家级别
+    
+    <b>反思质量标准：</b>
+    • 具体性：能举出具体例子
+    • 深度性：能分析原因和影响
+    • 前瞻性：能规划改进措施
+    • 诚实性：客观评估自己
+end note
+
+@enduml

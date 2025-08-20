@@ -1,0 +1,98 @@
+@startuml Five_Layer_Architecture_Canvas
+!theme plain
+!define DIRECTION top to bottom direction
+skinparam packageStyle rectangle
+skinparam packageBackgroundColor #ffffff
+skinparam packageBorderColor #cccccc
+skinparam linetype ortho
+skinparam class {
+    BackgroundColor #ffffff
+    BorderColor #888888
+    FontSize 12
+}
+
+title 五层架构核心区设计
+
+' 强制垂直布局
+top to bottom direction
+
+package "第5层：价值实现层" as Layer5 #ffebee {
+    class "完成度评估" as L5_Progress {
+        ★★★★★ (1-5星评分)
+        --
+        □ 效能量化评估
+        □ 持续改进机制  
+        □ ROI分析模型
+    }
+}
+
+package "第4层：场景应用层" as Layer4 #f3e5f5 {
+    class "完成度评估" as L4_Progress {
+        ★★★★★ (1-5星评分)
+        --
+        □ 民航业务场景
+        □ 项目管理场景
+        □ 行业最佳实践
+        □ 个性化方案设计
+    }
+}
+
+package "第3层：方法实践层" as Layer3 #fff3e0 {
+    class "完成度评估" as L3_Progress {
+        ★★★★★ (1-5星评分)
+        --
+        □ 需求阶段AI赋能
+        □ 设计阶段AI赋能
+        □ 开发阶段AI赋能
+        □ 项目管理AI赋能
+        □ 测试阶段AI赋能
+        □ 部署阶段AI赋能
+        □ 运维阶段AI赋能
+    }
+}
+
+package "第2层：工具生态层" as Layer2 #e3f2fd {
+    class "完成度评估" as L2_Progress {
+        ★★★★★ (1-5星评分)
+        --
+        □ GitHub云体系
+        □ VSCode+AI开发环境
+        □ MCP生态系统
+        □ 工具链集成
+    }
+}
+
+package "第1层：AI基础认知层" as Layer1 #e8f5e8 {
+    class "完成度评估" as L1_Progress {
+        ★★★★★ (1-5星评分)
+        --
+        □ 大模型原理认知
+        □ 能力边界认知
+        □ 模型选择标准
+        □ 提示工程技巧
+    }
+}
+
+' 层级关系
+Layer5 -down-> Layer4 : "价值导向"
+Layer4 -down-> Layer3 : "场景驱动" 
+Layer3 -down-> Layer2 : "方法支撑"
+Layer2 -down-> Layer1 : "工具基础"
+
+' 隐藏连接确保垂直布局
+Layer5 -[hidden]down- Layer4
+Layer4 -[hidden]down- Layer3  
+Layer3 -[hidden]down- Layer2
+Layer2 -[hidden]down- Layer1
+
+note top of Layer5
+    <b>目标层级</b>
+    学生能够评估和实现AI价值
+end note
+
+note bottom of Layer1
+    <b>基础层级</b>
+    学生建立AI认知基础
+end note
+
+@enduml
