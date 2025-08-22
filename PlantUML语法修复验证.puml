@@ -1,0 +1,36 @@
+@startuml PlantUML_Syntax_Verification
+!theme plain
+
+' 测试各种修复后的PlantUML语法
+
+' 1. Package图 (替代mindmap)
+package "AI辅助编码场景" {
+  package "代码生成" {
+    [业务逻辑实现] as logic
+    [API接口开发] as api
+    [数据库操作] as db
+    [算法实现] as algorithm
+  }
+  
+  package "代码补全" {
+    [智能提示] as hint
+    [上下文感知] as context
+    [多行补全] as multiline
+    [函数参数填充] as params
+  }
+  
+  package "代码优化" {
+    [性能优化建议] as performance
+    [代码重构] as refactor
+    [设计模式应用] as patterns
+    [最佳实践推荐] as practices
+  }
+}
+
+' 建立一些连接关系
+logic --> api
+api --> db
+hint --> context
+performance --> refactor
+
+@enduml
