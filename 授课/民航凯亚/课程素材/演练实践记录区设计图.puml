@@ -1,0 +1,134 @@
+@startuml Exercise_Practice_Record_Area
+!theme plain
+skinparam backgroundColor #ffffff
+skinparam rectangle {
+    BackgroundColor #fce4ec
+    BorderColor #880e4f
+    FontSize 10
+}
+
+title 演练实践记录区设计
+
+rectangle "8个演练记录矩阵" as matrix {
+    
+    rectangle "演练1：机场登机口管理系统" as ex1 #ffcdd2 {
+        class "记录模板" as r1 {
+            状态：✅ 已完成
+            评分：★★★★☆ (4星)
+            --
+            关键收获：
+            • 掌握Java Spring框架
+            • 理解MVC架构模式
+            • 学会数据库设计
+            --
+            遇到问题：
+            • 数据库连接配置
+            • 前端页面响应式布局
+            --
+            解决方案：
+            • 使用AI生成配置文件
+            • 借助Bootstrap框架
+            --
+            可应用场景：
+            航空公司系统开发
+        }
+    }
+    
+    rectangle "演练2：个人AI工具箱设计" as ex2 #ffcdd2 {
+        class "记录模板" as r2 {
+            状态：✅ 已完成  
+            评分：★★★★★ (5星)
+            --
+            设计的工具组合：
+            • GitHub Copilot (代码)
+            • Claude Desktop (需求)
+            • DeepSeek (架构设计)
+            --
+            预期使用场景：
+            • 日常开发任务
+            • 需求分析工作
+            • 技术方案设计
+        }
+    }
+    
+    rectangle "演练3：航班调度需求分析" as ex3 #ffcdd2 {
+        class "记录模板" as r3 {
+            状态：🔄 进行中
+            评分：★★★☆☆ (3星)
+            --
+            关键收获：
+            • 需求建模方法
+            • 用例图绘制技巧
+            --
+            当前困难：
+            • 业务流程理解不够深入
+            • UML图表表达不够准确
+            --
+            改进计划：
+            • 深入了解航空业务
+            • 多练习UML建模
+        }
+    }
+    
+    rectangle "演练4：货运系统项目计划" as ex4 #ffcdd2 {
+        class "记录模板" as r4 {
+            状态：⏳ 待开始
+            预期目标：
+            • 学习项目管理工具
+            • 掌握AI辅助项目规划
+            • 理解敏捷开发流程
+        }
+    }
+    
+    rectangle "演练5-8：后续演练" as ex58 #f8bbd9 {
+        class "计划概览" as r58 {
+            演练5：架构文档生成 ⏳
+            演练6：AI测试实践 ⏳  
+            演练7：CI/CD流水线 ⏳
+            演练8：MCP前端开发 ⏳
+            --
+            整体规划：
+            • 每周完成1-2个演练
+            • 注重理论与实践结合
+            • 加强同伴学习交流
+        }
+    }
+}
+
+rectangle "演练关联分析" as analysis {
+    class "知识图谱" as knowledge {
+        演练1 → 演练5：系统架构设计
+        演练2 → 演练8：AI工具应用  
+        演练3 → 演练6：需求到测试
+        演练4 → 演练7：项目到部署
+        --
+        学习路径建议：
+        基础认知 → 工具掌握 → 
+        方法实践 → 场景应用
+    }
+}
+
+matrix -down-> analysis : "总结提升"
+
+note right of matrix
+    <b>记录要点：</b>
+    
+    <b>1. 状态标识：</b>
+    ✅ 已完成  🔄 进行中
+    ⏳ 待开始  ❌ 需重做
+    
+    <b>2. 评分标准：</b>  
+    ★★★★★ 完全掌握，能教授他人
+    ★★★★☆ 熟练应用，偶有疑问
+    ★★★☆☆ 基本掌握，需要练习
+    ★★☆☆☆ 初步理解，需要指导
+    ★☆☆☆☆ 刚刚接触，需要重学
+    
+    <b>3. 记录原则：</b>
+    • 及时记录，趁热打铁
+    • 具体详实，避免泛泛而谈  
+    • 前瞻规划，思考应用场景
+    • 关联思考，构建知识网络
+end note
+
+@enduml

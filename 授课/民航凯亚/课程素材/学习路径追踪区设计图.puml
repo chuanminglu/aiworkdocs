@@ -1,0 +1,70 @@
+@startuml Learning_Progress_Dashboard
+!theme plain
+skinparam backgroundColor #ffffff
+skinparam rectangle {
+    BackgroundColor #fff3cd
+    BorderColor #856404
+    FontSize 11
+}
+
+title 学习路径追踪区设计
+
+rectangle "学习进度仪表盘" as dashboard {
+    rectangle "整体完成度" as overall {
+        note as progress
+            [████████▒▒] 80%
+            
+            完成里程碑：
+            ✅ AI认知建立
+            ✅ 工具熟练使用  
+            🔄 方法论掌握
+            ⏳ 场景实践应用
+            ⏳ 价值效果验证
+        end note
+    }
+    
+    rectangle "演练完成情况" as exercises {
+        class "演练状态表" as status {
+            演练1: ✅ 优秀 (★★★★★)
+            演练2: ✅ 良好 (★★★★☆)
+            演练3: 🔄 进行中
+            演练4: ⏳ 待开始
+            演练5: ⏳ 待开始
+            演练6: ⏳ 待开始
+            演练7: ⏳ 待开始
+            演练8: ⏳ 待开始
+        }
+    }
+}
+
+rectangle "当前学习焦点" as focus {
+    class "焦点记录" as current {
+        正在学习：航班调度需求分析
+        遇到挑战：需求建模复杂度高
+        需要帮助：UML图表绘制技巧
+        --
+        今日目标：
+        □ 完成需求用例图
+        □ 理解业务流程
+        □ 掌握AI分析工具
+    }
+}
+
+dashboard -down-> focus : "聚焦当前"
+
+note right of dashboard
+    <b>可视化元素说明：</b>
+    ✅ 已完成且质量良好
+    🔄 正在进行中
+    ⏳ 计划待开始
+    ❌ 需要重做或加强
+    
+    <b>评分标准：</b>
+    ★★★★★ 优秀(90-100分)
+    ★★★★☆ 良好(80-89分)
+    ★★★☆☆ 一般(70-79分)
+    ★★☆☆☆ 及格(60-69分)
+    ★☆☆☆☆ 需改进(60分以下)
+end note
+
+@enduml

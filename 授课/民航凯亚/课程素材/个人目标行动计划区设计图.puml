@@ -1,0 +1,126 @@
+@startuml Personal_Goal_Action_Plan_Area
+!theme plain
+skinparam backgroundColor #ffffff
+skinparam rectangle {
+    BackgroundColor #e8f5e8
+    BorderColor #2e7d32
+    FontSize 11
+}
+
+title 个人目标与行动计划区设计
+
+rectangle "AI+DevOps发展目标" as goals {
+    class "三层目标体系" as targets {
+        <b>短期目标(1个月)：</b>
+        熟练掌握GitHub Copilot和VSCode
+        完成所有8个演练，建立AI工具使用习惯
+        
+        <b>中期目标(3个月)：</b>
+        将AI工具应用到实际工作项目中
+        提升开发效率30%以上
+        
+        <b>长期目标(1年)：</b>
+        成为团队的AI+DevOps技术专家
+        推动部门数字化转型升级
+    }
+}
+
+rectangle "民航工作应用规划" as application {
+    class "应用场景矩阵" as scenarios {
+        <b>当前岗位：</b>系统开发工程师
+        <b>目标岗位：</b>AI+DevOps架构师
+        
+        <b>立即可应用场景：</b>
+        ■ 需求文档智能分析和优化
+        ■ 代码开发效率提升  
+        ■ 技术文档自动生成
+        □ 测试用例自动生成
+        □ 项目进度智能监控
+        □ 系统运维监控优化
+        
+        <b>需要进一步学习的场景：</b>
+        • 复杂业务逻辑的AI建模
+        • 大规模系统架构设计
+        • 团队协作流程优化
+    }
+}
+
+rectangle "个人AI工具箱建设" as toolbox {
+    class "工具成长路径" as tools {
+        <b>已经熟练使用：</b>
+        • GitHub Copilot (代码生成)
+        • ChatGPT (需求分析)
+        
+        <b>正在学习中：</b>  
+        • Claude Desktop (系统设计)
+        • MCP工具链 (工作流集成)
+        • DeepSeek (架构优化)
+        
+        <b>计划掌握：</b>
+        • AI测试工具 (自动化测试)
+        • AI运维工具 (智能监控)
+        • AI项目管理工具 (进度跟踪)
+        
+        <b>优先级排序：</b>
+        1. MCP工具链集成应用
+        2. AI自动化测试实践  
+        3. 智能项目管理工具
+    }
+}
+
+rectangle "行动计划检查表" as checklist {
+    class "SMART行动计划" as actions {
+        <b>每日行动 (Daily)：</b>
+        ■ 练习AI工具使用30分钟
+        ■ 记录学习心得和问题
+        □ 尝试将AI应用到工作任务
+        
+        <b>每周行动 (Weekly)：</b>
+        ■ 完成1个小项目实践
+        □ 与同事分享AI工具使用经验
+        □ 总结一周学习成果
+        
+        <b>每月行动 (Monthly)：</b>
+        □ 分享1次学习心得报告
+        □ 建立个人知识库条目
+        □ 评估学习进度和调整计划
+        
+        <b>季度行动 (Quarterly)：</b>
+        □ 完成一个实际业务项目的AI改造
+        □ 推广AI工具在团队中的应用
+        □ 参与或组织AI技术分享会
+    }
+}
+
+' 关系连线
+goals -down-> application : "目标驱动应用"
+application -right-> toolbox : "应用指导工具选择"
+toolbox -down-> checklist : "工具支撑行动"
+goals -right-> checklist : "目标分解为行动"
+
+note right of goals
+    <b>目标设定SMART原则：</b>
+    
+    <b>S</b>pecific - 具体明确
+    <b>M</b>easurable - 可量化
+    <b>A</b>chievable - 可达成  
+    <b>R</b>elevant - 相关性强
+    <b>T</b>ime-bound - 有时限
+    
+    <b>应用场景优先级：</b>
+    高频使用 > 高价值创造 > 
+    易于实现 > 团队需要
+end note
+
+note bottom of checklist
+    <b>行动计划执行建议：</b>
+    
+    • 从小事做起，建立习惯
+    • 设定明确的完成标准
+    • 定期回顾和调整计划
+    • 寻找同伴互相督促
+    • 庆祝阶段性成果
+    • 记录成功经验和教训
+end note
+
+@enduml

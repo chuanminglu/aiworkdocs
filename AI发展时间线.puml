@@ -1,0 +1,20 @@
+@startuml AI_Development_Timeline
+!theme plain
+skinparam activity {
+  BackgroundColor #E1F5FE
+  BorderColor #0288D1
+}
+
+title AI编程技术发展时间线
+
+start
+:2000-2010年\n传统IDE智能提示\n基于语法的自动补全;
+:2010-2020年\n基于模板的代码生成\nTabnine等工具出现;
+:2021年\n大语言模型革命\nGitHub Copilot发布;
+:2022-2023年\nCopilot正式发布\nDeepSeek Coder等竞品;
+:2024年\nGPT-4代码优化\n多模型竞争时代;
+:2025年\nAgent模式成熟\n多模态代码生成;
+:2026年+\n全栈自动化开发\n智能化测试生成;
+stop
+
+@enduml

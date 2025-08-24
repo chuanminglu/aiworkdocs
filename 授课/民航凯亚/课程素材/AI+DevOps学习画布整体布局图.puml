@@ -1,0 +1,90 @@
+@startuml AI_DevOps_Learning_Canvas_Layout
+!theme plain
+skinparam backgroundColor #ffffff
+skinparam rectangle {
+    BackgroundColor #f8f9fa
+    BorderColor #dee2e6
+    BorderThickness 2
+}
+
+title AI+DevOps学习成长画布整体布局设计
+
+' 定义主要区域
+rectangle "AI+DevOps学习成长画布\n姓名：_______  日期：_______" as header #e9ecef {
+}
+
+rectangle "左侧区域" as left #fff3cd {
+    rectangle "学习路径追踪" as track #ffeaa7 {
+        note as track_note
+            • 整体完成度进度条
+            • 演练完成情况
+            • 学习里程碑
+            • 当前学习焦点
+        end note
+    }
+}
+
+rectangle "中央核心区" as center #d1ecf1 {
+    rectangle "五层架构核心区" as core #74b9ff {
+        rectangle "第5层：价值实现层" as layer5 #ffebee
+        rectangle "第4层：场景应用层" as layer4 #f3e5f5
+        rectangle "第3层：方法实践层" as layer3 #fff3e0
+        rectangle "第2层：工具生态层" as layer2 #e3f2fd
+        rectangle "第1层：AI基础认知层" as layer1 #e8f5e8
+        
+        layer5 -[hidden]down- layer4
+        layer4 -[hidden]down- layer3
+        layer3 -[hidden]down- layer2
+        layer2 -[hidden]down- layer1
+    }
+}
+
+rectangle "右侧区域" as right #d4edda {
+    rectangle "自我评估反思区" as reflect #00b894 {
+        note as reflect_note
+            • 能力自评量表
+            • 反思日志
+            • 学习方式偏好
+        end note
+    }
+}
+
+rectangle "下方区域" as bottom #fce4ec {
+    rectangle "演练实践记录区" as practice #fd79a8 {
+        rectangle "演练1-2" as p12 #fab1a0
+        rectangle "演练3-4" as p34 #fab1a0
+        rectangle "演练5-6" as p56 #fab1a0
+        rectangle "演练7-8" as p78 #fab1a0
+        
+        p12 -[hidden]right- p34
+        p34 -[hidden]right- p56
+        p56 -[hidden]right- p78
+    }
+}
+
+rectangle "底部区域" as footer #e8f5e8 {
+    rectangle "个人目标与行动计划区" as plan #00b894 {
+        note as plan_note
+            • 个人AI+DevOps发展目标
+            • 在民航工作中的应用规划
+            • 个人AI工具箱建设计划
+            • 行动计划检查表
+        end note
+    }
+}
+
+' 布局关系
+header -[hidden]down- left
+header -[hidden]down- center  
+header -[hidden]down- right
+
+left -[hidden]right- center
+center -[hidden]right- right
+
+left -[hidden]down- bottom
+center -[hidden]down- bottom
+right -[hidden]down- bottom
+
+bottom -[hidden]down- footer
+
+@enduml

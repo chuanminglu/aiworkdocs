@@ -1,0 +1,143 @@
+@startuml 用户交互流程图
+!theme materia
+skinparam defaultFontSize 12
+skinparam packageFontSize 14
+
+title TeamHealth Monitor - 用户交互演示流程
+
+actor "👨‍💼 演示者" as Presenter
+actor "👥 观众" as Audience
+participant "🖥️ 应用界面" as UI
+participant "📊 数据生成器" as DataGen
+participant "🧠 分析引擎" as Engine
+
+== 演示准备阶段 ==
+
+Presenter -> UI: 🚀 启动应用程序
+activate UI
+
+UI -> DataGen: 📋 加载默认场景数据\n(健康团队状态)
+activate DataGen
+
+DataGen -> Engine: 📨 生成120条模拟消息\n积极70% 中性25% 消极5%
+activate Engine
+
+Engine -> UI: 📊 计算初始指标\n情感得分: 7.2/10
+UI -> Presenter: ✅ 应用就绪\n显示健康状态
+
+deactivate Engine
+deactivate DataGen
+
+note over Presenter, UI
+    **场景A展示 - 健康团队状态**
+    • 整体情感得分: 7.2/10 (良好)
+    • 沟通活跃度: 85%
+    • 协作意愿指数: 8.1/10
+    • 压力水平: 3.2/10
+    • 预警状态: ✅ 无预警
+end note
+
+== 演示核心功能 ==
+
+Presenter -> Audience: 📢 "现在我们看到团队状态很健康"
+Presenter -> UI: 👆 点击"切换场景"按钮
+
+UI -> DataGen: 🔄 切换到压力场景
+activate DataGen
+
+DataGen -> Engine: ⚡ 生成新数据\n积极20% 中性35% 消极45%
+activate Engine
+
+Engine -> UI: ⚠️ 重新计算指标\n情感得分: 4.8/10
+UI -> UI: 🚨 触发预警系统\n显示预警信息
+
+deactivate Engine
+deactivate DataGen
+
+UI -> Presenter: 📊 更新仪表板\n显示压力状态
+
+note over Presenter, UI  
+    **场景B展示 - 压力状态预警**
+    • 整体情感得分: 4.8/10 (预警)
+    • 沟通活跃度: 62% ⬇️
+    • 协作意愿指数: 5.9/10 ⬇️
+    • 压力水平: 6.7/10 ⬆️
+    • 预警状态: ⚠️ 中级预警
+end note
+
+Presenter -> Audience: 📢 "系统自动检测到团队压力状态"
+Presenter -> UI: 👆 点击"查看详情"
+
+UI -> UI: 📋 展示详细分析页面\n显示问题原因和建议
+
+note over UI
+    **详细分析展示**
+    🔍 问题识别:
+    • 需求变更导致的挫败情绪 (7次)
+    • 技术债务引起的焦虑情绪 (5次)
+    
+    💡 AI建议:
+    • 建立需求变更流程和影响评估机制
+    • 安排技术债务专项Sprint处理
+    • 优化任务分配算法，平衡工作负荷
+end note
+
+== 演示算法透明性 ==
+
+Presenter -> Audience: 📢 "让我们看看这个分数是如何计算的"
+Presenter -> UI: 👆 点击"算法详情"
+
+UI -> UI: 🧮 显示计算过程\n展示原始数据和分析步骤
+
+note over UI
+    **算法透明度展示**
+    📝 原始消息: "又要改需求了...第三次了，压力山大"
+    ✂️ 分词结果: ["又","要","改","需求","第三次","压力山大"]
+    🎯 词汇匹配: {"改": -1, "压力山大": -3}
+    🧮 分值计算: (-1 + -3) / 2 = -2.0 → 归一化: -0.67
+    📊 分类结果: negative (消极)
+end note
+
+Presenter -> Audience: 📢 "每个分数都有明确的计算依据"
+
+== 演示恢复效果 ==
+
+Presenter -> UI: 👆 点击"模拟干预措施"
+
+UI -> DataGen: 🔄 切换到恢复场景
+activate DataGen
+
+DataGen -> Engine: 📈 生成恢复数据\n积极50% 中性35% 消极15%
+activate Engine
+
+Engine -> UI: ✨ 计算改善指标\n情感得分: 6.9/10
+UI -> UI: ✅ 预警解除\n显示恢复状态
+
+deactivate Engine
+deactivate DataGen
+
+note over Presenter, UI
+    **场景C展示 - 恢复改善状态**
+    • 整体情感得分: 6.9/10 ⬆️ (恢复良好)
+    • 沟通活跃度: 78% ⬆️
+    • 协作意愿指数: 7.8/10 ⬆️  
+    • 压力水平: 4.1/10 ⬇️
+    • 预警状态: ✅ 预警解除
+end note
+
+Presenter -> Audience: 📢 "这就是AI赋能团队管理的价值"
+
+== Q&A环节 ==
+
+Audience -> Presenter: ❓ "这个系统的准确率如何？"
+Presenter -> Audience: 📊 "基于词典匹配，准确率约85%\n可通过机器学习进一步提升"
+
+Audience -> Presenter: ❓ "是否支持实时数据？"  
+Presenter -> Audience: 🔄 "支持，每5分钟自动更新一次\n可集成Slack/钉钉等平台"
+
+Audience -> Presenter: ❓ "如何保护隐私？"
+Presenter -> Audience: 🛡️ "只分析情感倾向，不存储具体内容\n个人数据仅管理层可见"
+
+deactivate UI
+
+@enduml

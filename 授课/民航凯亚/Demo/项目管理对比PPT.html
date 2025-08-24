@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>传统 vs AI赋能项目管理对比</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            color: #333;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 1s ease-out;
+        }
+
+        .title h1 {
+            font-size: 36px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .left-panel, .right-panel {
+            flex: 1;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel {
+            border-left: 5px solid #FF6B6B;
+            animation: slideLeft 1.2s ease-out 0.3s both;
+        }
+
+        .right-panel {
+            border-left: 5px solid #4ECDC4;
+            animation: slideRight 1.2s ease-out 0.6s both;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .panel-icon {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+
+        .panel-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .traditional-title {
+            color: #FF6B6B;
+        }
+
+        .ai-title {
+            color: #4ECDC4;
+        }
+
+        .scenario-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .traditional-scenario {
+            border-left: 4px solid #FF6B6B;
+        }
+
+        .ai-scenario {
+            border-left: 4px solid #4ECDC4;
+        }
+
+        .problems-list, .warnings-list {
+            margin-top: 15px;
+        }
+
+        .problems-list li, .warnings-list li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .problems-list li::before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+        }
+
+        .warnings-list li::before {
+            content: "🚨";
+            position: absolute;
+            left: 0;
+        }
+
+        .ai-suggestions {
+            background: #e8f5e8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #28a745;
+        }
+
+        .ai-suggestions h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            animation: slideUp 1.5s ease-out 0.9s both;
+        }
+
+        .comparison-table h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .traditional-cell {
+            background: #ffe6e6;
+            color: #d63031;
+        }
+
+        .ai-cell {
+            background: #e6f7ff;
+            color: #0984e3;
+        }
+
+        .improvement-cell {
+            background: #e8f5e8;
+            color: #00b894;
+            font-weight: bold;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .fire-effect {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            animation: fireFlicker 1.5s infinite;
+        }
+
+        .ai-effect {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            animation: aiGlow 2s infinite;
+        }
+
+        /* 动画定义 */
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideLeft {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes fireFlicker {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-2deg); }
+            75% { transform: scale(0.9) rotate(2deg); }
+        }
+
+        @keyframes aiGlow {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .month-badge {
+            display: inline-block;
+            background: #ff4757;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .ai-month-badge {
+            background: #2ed573;
+        }
+
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- 标题部分 -->
+        <div class="title">
+            <h1>🎯 从被动救火到主动预警：AI如何重塑项目管理</h1>
+            <p>Traditional vs AI-Enhanced Project Management</p>
+        </div>
+
+        <!-- 主要内容对比 -->
+        <div class="content">
+            <!-- 传统项目管理 -->
+            <div class="left-panel">
+                <div class="fire-effect">🔥</div>
+                <div class="panel-header">
+                    <div class="panel-icon">🏢</div>
+                    <div class="panel-title traditional-title">
+                        传统方式：问题爆发
+                        <span class="month-badge">第3个月</span>
+                    </div>
+                </div>
+
+                <div class="scenario-box traditional-scenario">
+                    <strong>📅 周一早会场景：</strong><br>
+                    ─────────────────────────<br><br>
+                    <strong>项目经理：</strong>"大家报告一下进度..."<br><br>
+                    <strong>👨‍💻 前端组长：</strong>"我们这边80%完成"<br>
+                    <span style="color: #666; font-size: 12px;">（实际可能只有60%）</span><br><br>
+                    <strong>👨‍💻 后端组长：</strong>"遇到了一些技术难题，<br>
+                    可能需要延期"<br><br>
+                    <strong>🧪 测试组长：</strong>"等开发完成再说"
+                </div>
+
+                <div class="problems-list">
+                    <h4 style="color: #FF6B6B; margin-bottom: 10px;">核心问题：</h4>
+                    <ul style="list-style: none;">
+                        <li>信息不透明，实际进度难以掌握</li>
+                        <li>问题发现太晚，已经影响整体进度</li>
+                        <li>各组信息孤立，无法协同优化</li>
+                        <li>只能被动应对，缺乏预判</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- AI赋能项目管理 -->
+            <div class="right-panel">
+                <div class="ai-effect">🤖</div>
+                <div class="panel-header">
+                    <div class="panel-icon">🤖</div>
+                    <div class="panel-title ai-title">
+                        AI方式：智能预警
+                        <span class="month-badge ai-month-badge">第2个月</span>
+                    </div>
+                </div>
+
+                <div class="scenario-box ai-scenario">
+                    <strong>🤖 AI每日自动分析：</strong><br>
+                    ─────────────────────────<br>
+                    📊 Git提交频率和代码质量<br>
+                    📋 Ones/Coding/禅道任务完成情况<br>
+                    💬 团队协作数据（钉钉/企微消息分析）<br>
+                    ✅ 代码审查通过率<br>
+                    🧪 测试用例覆盖度
+                </div>
+
+                <div class="warnings-list">
+                    <h4 style="color: #4ECDC4; margin-bottom: 10px;">智能预警（提前1个月发现）：</h4>
+                    <ul style="list-style: none;">
+                        <li>检测到后端张三最近提交频率<span class="highlight">下降40%</span></li>
+                        <li>API接口设计存在<span class="highlight">性能瓶颈风险</span></li>
+                        <li>前端与后端联调时间预计<span class="highlight">超期1周</span></li>
+                    </ul>
+                </div>
+
+                <div class="ai-suggestions">
+                    <h4>💡 AI智能建议：</h4>
+                    <div style="font-size: 14px; line-height: 1.4;">
+                        ├─ 提前介入技术方案review<br>
+                        ├─ 调整资源配置<br>
+                        └─ 优化开发流程
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 对比表格 -->
+        <div class="comparison-table">
+            <h3>📊 核心差异对比</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>对比维度</th>
+                        <th>🏢 传统方式</th>
+                        <th>🤖 AI赋能方式</th>
+                        <th>📈 改善效果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>问题发现时间</strong></td>
+                        <td class="traditional-cell">第3个月</td>
+                        <td class="ai-cell">第2个月</td>
+                        <td class="improvement-cell">⬆️ 提前1个月</td>
+                    </tr>
+                    <tr>
+                        <td><strong>信息准确性</strong></td>
+                        <td class="traditional-cell">主观估算</td>
+                        <td class="ai-cell">客观数据</td>
+                        <td class="improvement-cell">⬆️ 准确率85%+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>应对方式</strong></td>
+                        <td class="traditional-cell">被动救火</td>
+                        <td class="ai-cell">主动预防</td>
+                        <td class="improvement-cell">⬆️ 效率提升60%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>团队协同</strong></td>
+                        <td class="traditional-cell">信息孤岛</td>
+                        <td class="ai-cell">全局优化</td>
+                        <td class="improvement-cell">⬆️ 协同效率2倍</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 添加一些交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为表格行添加悬停效果
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // 为面板添加悬停效果
+            const panels = document.querySelectorAll('.left-panel, .right-panel');
+            panels.forEach(panel => {
+                panel.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                    this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.3)';
+                });
+                
+                panel.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+                });
+            });
+
+            // 数字动画效果
+            function animateNumber(element, target, duration = 2000) {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current) + '%';
+                }, 16);
+            }
+
+            // 3秒后开始数字动画
+            setTimeout(() => {
+                const improvements = document.querySelectorAll('.improvement-cell');
+                improvements.forEach((cell, index) => {
+                    if (cell.textContent.includes('85%')) {
+                        animateNumber(cell, 85);
+                    } else if (cell.textContent.includes('60%')) {
+                        animateNumber(cell, 60);
+                    }
+                });
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

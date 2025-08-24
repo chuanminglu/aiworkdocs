@@ -1,0 +1,128 @@
+@startuml 团队健康度监控数据流图
+!theme materia
+skinparam defaultFontSize 12
+skinparam packageFontSize 14
+
+title 团队健康度监控情感分析数据流程图
+
+' 定义参与者
+participant "📱 数据源" as DataSource
+participant "🔄 数据处理层" as DataProcessor
+participant "📊 指标计算层" as MetricsCalculator
+participant "🖥️ 界面展示层" as UI
+
+' 数据采集阶段
+group 数据采集阶段
+    DataSource -> DataProcessor: 💬 Slack消息\n📧 邮件内容\n💻 Jira评论\n🎥 会议转录
+    note right of DataSource
+        **数据来源**
+        • Slack/钉钉聊天记录
+        • 邮件沟通内容
+        • Jira任务评论
+        • 代码提交评论
+        • 会议语音转录
+    end note
+end
+
+' 数据预处理阶段
+group 数据预处理阶段
+    DataProcessor -> DataProcessor: 📝 文本清洗\n去除特殊字符和表情
+    DataProcessor -> DataProcessor: ✂️ 中文分词\njieba.cut()
+    DataProcessor -> DataProcessor: 🏷️ 停用词过滤\n移除无意义词汇
+    DataProcessor -> DataProcessor: ⏰ 时间标准化\n统一时间格式
+    
+    note right of DataProcessor
+        **预处理示例**
+        原文: "这个功能很棒！😊"
+        清洗后: "这个功能很棒"
+        分词: ["这个","功能","很","棒"]
+    end note
+end
+
+' 情感分析阶段
+group 情感分析阶段
+    DataProcessor -> MetricsCalculator: 🎯 词汇匹配\n情感词典查询
+    
+    MetricsCalculator -> MetricsCalculator: 😊 积极词汇识别\n权重: +1~+3
+    MetricsCalculator -> MetricsCalculator: 😔 消极词汇识别\n权重: -1~-3
+    MetricsCalculator -> MetricsCalculator: 😐 中性词汇识别\n权重: 0
+    
+    note right of MetricsCalculator
+        **词汇权重示例**
+        积极: "棒"(+2), "赞"(+2), "好"(+1)
+        消极: "烦"(-2), "糟"(-2), "差"(-1)
+        压力: "压力山大"(+3), "deadline"(+2.5)
+        协作: "我们一起"(+2.0), "大家"(+1.5)
+    end note
+end
+
+' 指标计算阶段
+group 指标计算阶段
+    MetricsCalculator -> MetricsCalculator: 📈 整体情感得分\n(积极×1.0 + 中性×0.5 + 消极×0.0) × 10
+    MetricsCalculator -> MetricsCalculator: 📊 沟通活跃度\n(当日消息数 / 基准数) × 100%
+    MetricsCalculator -> MetricsCalculator: 🤝 协作意愿指数\n基于协作关键词频率计算
+    MetricsCalculator -> MetricsCalculator: 😰 压力水平\n基于压力词汇权重计算
+    
+    note left of MetricsCalculator
+        **计算示例**
+        消息样本: 100条
+        积极: 45条 (45%)
+        中性: 32条 (32%)  
+        消极: 23条 (23%)
+        
+        得分 = (0.45×1.0 + 0.32×0.5 + 0.23×0.0) × 10
+             = 6.1分
+    end note
+end
+
+' 预警检查阶段
+group 预警检查阶段
+    MetricsCalculator -> MetricsCalculator: ⚠️ 预警规则检查\n情感得分 < 5.0 持续3天
+    MetricsCalculator -> MetricsCalculator: 🚨 预警级别判定\n轻微/中级/高级
+    MetricsCalculator -> MetricsCalculator: 💡 建议生成\n基于历史数据推荐
+    
+    note right of MetricsCalculator
+        **预警规则**
+        • 情感得分 < 5.0 → 中级预警
+        • 压力水平 > 7.0 → 高级预警  
+        • 活跃度 < 50% → 轻微预警
+        • 协作指数 < 4.0 → 中级预警
+    end note
+end
+
+' 界面展示阶段
+group 界面展示阶段
+    MetricsCalculator -> UI: 📊 实时指标数据\n4大核心指标
+    MetricsCalculator -> UI: 📈 趋势图表数据\n7天历史对比
+    MetricsCalculator -> UI: 🚨 预警信息\n预警类型和建议
+    MetricsCalculator -> UI: 👥 成员状态\n个人情绪评分
+    
+    UI -> UI: 🖥️ 仪表板渲染\n实时数据展示
+    UI -> UI: 📊 图表更新\n情感趋势可视化
+    UI -> UI: 🔔 预警通知\n弹窗和声音提醒
+    
+    note left of UI
+        **展示内容**
+        • 整体情感得分: 7.2/10
+        • 沟通活跃度: 85%
+        • 协作意愿指数: 8.1/10
+        • 压力水平: 3.2/10
+        • 预警状态: ✅ 无预警
+    end note
+end
+
+' 反馈循环
+group 反馈与优化
+    UI -> DataProcessor: 🔄 用户反馈\n手动标注数据
+    DataProcessor -> MetricsCalculator: 📚 模型优化\n词典权重调整
+    
+    note over UI, MetricsCalculator
+        **持续优化机制**
+        • 用户可标注情感分析准确性
+        • 根据反馈调整词典权重
+        • 定期更新预警阈值
+        • 个性化团队参数配置
+    end note
+end
+
+@enduml

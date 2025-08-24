@@ -22,7 +22,7 @@ skinparam {
     defaultFontName "Microsoft YaHei"
     defaultFontSize 12
     titleFontSize 18
-    
+  
     rectangle {
         FontStyle bold
         FontSize 13
@@ -32,7 +32,7 @@ skinparam {
         MinimumWidth 200
         MinimumHeight 80
     }
-    
+  
     note {
         BackgroundColor #FFFDE7
         BorderColor #F57F17
@@ -40,7 +40,7 @@ skinparam {
         FontSize 11
         MinimumWidth 180
     }
-    
+  
     arrow {
         FontSize 11
         Thickness 2
@@ -107,11 +107,11 @@ rectangle "<size:16><b>🏢 组织层次质量管理</b></size>" as ORG <<org>> 
     rectangle "<size:13><b>🎯 质量愿景与战略</b></size>\n<size:11>• 质量方针制定\n• 质量目标设定\n• 质量战略规划</size>" as VISION
     rectangle "<size:13><b>📋 质量标准与规范</b></size>\n<size:11>• 过程标准定义\n• 产品质量规范\n• 服务质量要求</size>" as STANDARD  
     rectangle "<size:13><b>📐 质量模型与度量</b></size>\n<size:11>• 质量评估模型\n• 关键质量指标\n• 度量数据分析</size>" as MODEL
-    
+  
     rectangle "<size:13><b>🛠️ 技术工具与平台</b></size>\n<size:11>• 质量工具链\n• 自动化平台\n• 集成开发环境</size>" as TOOLS
     rectangle "<size:13><b>👥 人员能力建设</b></size>\n<size:11>• 技能培训体系\n• 认证管理\n• 团队协作文化</size>" as PEOPLE
     rectangle "<size:13><b>🔄 持续改进机制</b></size>\n<size:11>• 质量评审\n• 问题分析\n• 改进措施实施</size>" as IMPROVE
-    
+  
     VISION -right-> STANDARD : "<size:11>指导制定</size>"
     STANDARD -right-> MODEL : "<size:11>量化评估</size>"
     MODEL -down-> TOOLS : "<size:11>工具支撑</size>"
@@ -122,73 +122,73 @@ rectangle "<size:16><b>🏢 组织层次质量管理</b></size>" as ORG <<org>> 
 
 ' DevOps生命周期质量活动 - 采用3x2网格布局
 rectangle "<size:16><b>🔄 DevOps生命周期质量活动</b></size>" as PROJECT <<devops>> {
-    
+  
     ' 第一行：计划、开发、集成
     rectangle "<size:14><b>📋 计划 Plan</b></size>" as PLAN {
         rectangle "<size:12><b>📝 需求质量分析</b></size>\n<size:10>• 需求完整性检查\n• 可测试性评估\n• 验收标准定义</size>" as REQ_Q
         rectangle "<size:12><b>📊 质量计划制定</b></size>\n<size:10>• 质量目标设定\n• 测试策略规划\n• 质量活动安排</size>" as Q_PLAN
         rectangle "<size:12><b>⚠️ 风险识别评估</b></size>\n<size:10>• 质量风险分析\n• 技术风险评估\n• 缓解措施制定</size>" as RISK
-        
+      
         REQ_Q -down-> Q_PLAN
         Q_PLAN -down-> RISK
     }
-    
+  
     rectangle "<size:14><b>💻 开发 Dev</b></size>" as DEV {
         rectangle "<size:12><b>🎨 设计质量保证</b></size>\n<size:10>• 架构设计评审\n• 接口设计规范\n• 可维护性检查</size>" as DESIGN_Q
         rectangle "<size:12><b>🔍 代码质量控制</b></size>\n<size:10>• 编码规范检查\n• 静态代码分析\n• 代码覆盖率监控</size>" as CODE_Q
         rectangle "<size:12><b>🧪 单元测试驱动</b></size>\n<size:10>• TDD开发模式\n• 单元测试覆盖\n• Mock对象使用</size>" as UNIT_TEST
-        
+      
         DESIGN_Q -down-> CODE_Q
         CODE_Q -down-> UNIT_TEST
     }
-    
+  
     rectangle "<size:14><b>🔧 集成 Build</b></size>" as BUILD {
         rectangle "<size:12><b>⚡ 持续集成流水线</b></size>\n<size:10>• 自动化构建\n• 依赖管理\n• 制品版本控制</size>" as CI
         rectangle "<size:12><b>🔗 集成测试验证</b></size>\n<size:10>• 接口测试\n• 组件集成测试\n• 端到端测试</size>" as INT_TEST
         rectangle "<size:12><b>🚪 质量门禁控制</b></size>\n<size:10>• 代码质量检查\n• 测试通过率\n• 安全扫描结果</size>" as GATE
-        
+      
         CI -down-> INT_TEST
         INT_TEST -down-> GATE
     }
-    
+  
     ' 第二行：测试、发布、运维
     rectangle "<size:14><b>🧪 测试 Test</b></size>" as TEST {
         rectangle "<size:12><b>🖥️ 系统功能测试</b></size>\n<size:10>• 功能完整性验证\n• 业务流程测试\n• 用户场景验证</size>" as SYS_TEST
         rectangle "<size:12><b>⚡ 性能压力测试</b></size>\n<size:10>• 负载测试\n• 压力测试\n• 容量规划验证</size>" as PERF_TEST
         rectangle "<size:12><b>🔒 安全合规测试</b></size>\n<size:10>• 安全漏洞扫描\n• 权限控制验证\n• 数据保护检查</size>" as SEC_TEST
-        
+      
         SYS_TEST -down-> PERF_TEST
         PERF_TEST -down-> SEC_TEST
     }
-    
+  
     rectangle "<size:14><b>🚀 发布 Release</b></size>" as RELEASE {
         rectangle "<size:12><b>✅ 用户验收测试</b></size>\n<size:10>• UAT测试执行\n• 业务用户验收\n• 上线准备确认</size>" as UAT
         rectangle "<size:12><b>📦 发布质量保证</b></size>\n<size:10>• 发布计划审核\n• 回滚方案准备\n• 发布流程监控</size>" as REL_Q
         rectangle "<size:12><b>🔍 部署验证检查</b></size>\n<size:10>• 环境一致性验证\n• 配置正确性检查\n• 服务可用性确认</size>" as DEPLOY_V
-        
+      
         UAT -down-> REL_Q
         REL_Q -down-> DEPLOY_V
     }
-    
+  
     rectangle "<size:14><b>🖥️ 运维 Ops</b></size>" as OPS {
         rectangle "<size:12><b>📊 监控告警体系</b></size>\n<size:10>• 实时性能监控\n• 业务指标监控\n• 异常告警机制</size>" as MONITOR
         rectangle "<size:12><b>🚨 故障响应处理</b></size>\n<size:10>• 故障快速定位\n• 应急响应流程\n• 故障根因分析</size>" as INCIDENT
         rectangle "<size:12><b>⚡ 性能持续优化</b></size>\n<size:10>• 系统性能调优\n• 资源使用优化\n• 架构演进升级</size>" as OPTIMIZE
-        
+      
         MONITOR -down-> INCIDENT
         INCIDENT -down-> OPTIMIZE
     }
-    
+  
     ' 反馈阶段 - 单独放置在下方
     rectangle "<size:14><b>🔄 反馈 Feedback</b></size>" as FEEDBACK {
         rectangle "<size:12><b>👥 用户体验反馈</b></size>\n<size:10>• 用户满意度调研\n• 使用行为分析\n• 改进需求收集</size>" as USER_FB
         rectangle "<size:12><b>📈 质量数据分析</b></size>\n<size:10>• 质量趋势分析\n• 缺陷模式识别\n• 过程效能评估</size>" as Q_ANALYSIS
         rectangle "<size:12><b>💡 持续改进建议</b></size>\n<size:10>• 问题根因分析\n• 改进措施制定\n• 最佳实践总结</size>" as IMPROVE_SUGGEST
-        
+      
         USER_FB -right-> Q_ANALYSIS
         Q_ANALYSIS -right-> IMPROVE_SUGGEST
     }
-    
+  
     ' 生命周期流程连接 - 更清晰的箭头
     PLAN -right-> DEV : "<size:11><b>需求传递</b></size>"
     DEV -right-> BUILD : "<size:11><b>代码提交</b></size>"
@@ -203,10 +203,10 @@ rectangle "<size:16><b>🔄 DevOps生命周期质量活动</b></size>" as PROJEC
 rectangle "<size:16><b>🏗️ 质量工程基础设施平台</b></size>" as INFRA <<infra>> {
     rectangle "<size:13><b>📊 数据驱动质量监控</b></size>\n<size:11>• 质量数据采集\n• 实时监控面板\n• 智能异常检测\n• 趋势预测分析</size>" as DATA_SYSTEM
     rectangle "<size:13><b>📚 质量知识管理中心</b></size>\n<size:11>• 最佳实践库\n• 问题解决方案\n• 经验教训总结\n• 知识共享平台</size>" as KNOWLEDGE
-    
+  
     rectangle "<size:13><b>🔧 质量工具链平台</b></size>\n<size:11>• 自动化测试工具\n• 代码质量分析\n• 性能测试平台\n• 安全扫描工具</size>" as TOOLCHAIN
     rectangle "<size:13><b>📈 质量度量仪表板</b></size>\n<size:11>• KPI指标展示\n• 质量趋势图表\n• 团队绩效面板\n• 决策支持报告</size>" as DASHBOARD
-    
+  
     DATA_SYSTEM <--> KNOWLEDGE : "<size:10>数据驱动知识</size>"
     KNOWLEDGE <--> TOOLCHAIN : "<size:10>知识指导实践</size>"
     TOOLCHAIN <--> DASHBOARD : "<size:10>工具产生数据</size>"
@@ -258,7 +258,7 @@ rectangle "质量方针与策略" as POLICY_LAYER {
     rectangle "质量目标" as OBJECTIVES  
     rectangle "质量策略" as STRATEGY
     rectangle "质量原则" as PRINCIPLES
-    
+  
     VISION --> OBJECTIVES
     OBJECTIVES --> STRATEGY
     STRATEGY --> PRINCIPLES
@@ -287,20 +287,20 @@ rectangle "质量标准与规范" as STANDARD_LAYER {
         rectangle "CMMI" as CMMI
         rectangle "ISO 27001" as ISO27001
     }
-    
+  
     rectangle "行业标准" as INDUSTRY_STD {
         rectangle "金融行业标准" as FINANCE
         rectangle "电信行业标准" as TELECOM
         rectangle "医疗行业标准" as HEALTHCARE
     }
-    
+  
     rectangle "企业标准" as CORP_STD {
         rectangle "编码规范" as CODING_STD
         rectangle "测试规范" as TEST_STD
         rectangle "发布规范" as RELEASE_STD
         rectangle "运维规范" as OPS_STD
     }
-    
+  
     INTL_STD --> INDUSTRY_STD
     INDUSTRY_STD --> CORP_STD
 }
@@ -323,21 +323,21 @@ rectangle "质量模型与度量" as MODEL_LAYER {
         rectangle "可维护性" as MAINTAINABILITY
         rectangle "可移植性" as PORTABILITY
     }
-    
+  
     rectangle "度量体系" as METRICS {
         rectangle "过程度量" as PROCESS_METRICS
         rectangle "产品度量" as PRODUCT_METRICS
         rectangle "项目度量" as PROJECT_METRICS
         rectangle "质量度量" as QUALITY_METRICS
     }
-    
+  
     rectangle "质量仪表板" as DASHBOARD {
         rectangle "实时监控" as REALTIME
         rectangle "趋势分析" as TREND
         rectangle "预警机制" as ALERT
         rectangle "报告生成" as REPORT
     }
-    
+  
     Q_MODEL --> METRICS
     METRICS --> DASHBOARD
 }
@@ -421,33 +421,33 @@ rectangle "质量门禁体系" as GATE_SYSTEM {
         rectangle "一致性验证" as REQ_CONSISTENT  
         rectangle "可测试性评估" as REQ_TESTABLE
     }
-    
+  
     rectangle "设计评审门禁" as DESIGN_GATE {
         rectangle "架构合规性" as ARCH_COMPLIANCE
         rectangle "设计质量评分" as DESIGN_SCORE
         rectangle "技术债务评估" as TECH_DEBT
     }
-    
+  
     rectangle "代码质量门禁" as CODE_GATE {
         rectangle "代码覆盖率" as CODE_COVERAGE
         rectangle "代码复杂度" as CODE_COMPLEXITY
         rectangle "安全漏洞扫描" as SECURITY_SCAN
         rectangle "代码重复度" as CODE_DUPLICATION
     }
-    
+  
     rectangle "测试质量门禁" as TEST_GATE {
         rectangle "测试用例覆盖率" as TEST_COVERAGE
         rectangle "缺陷密度" as DEFECT_DENSITY
         rectangle "测试执行率" as TEST_EXECUTION
     }
-    
+  
     rectangle "发布准入门禁" as RELEASE_GATE {
         rectangle "功能完整性" as FUNC_COMPLETE
         rectangle "性能基准达标" as PERF_BASELINE
         rectangle "安全合规检查" as SEC_COMPLIANCE
         rectangle "运维就绪度" as OPS_READINESS
     }
-    
+  
     REQ_GATE --> DESIGN_GATE
     DESIGN_GATE --> CODE_GATE
     CODE_GATE --> TEST_GATE
@@ -471,41 +471,41 @@ rectangle "质量工具链生态" as TOOLCHAIN_ECO {
         rectangle "Azure DevOps" as AZURE_DO
         rectangle "Confluence" as CONFLUENCE
     }
-    
+  
     rectangle "代码质量工具" as CODE_TOOLS {
         rectangle "SonarQube" as SONAR
         rectangle "Checkmarx" as CHECKMARX
         rectangle "Veracode" as VERACODE
         rectangle "ESLint" as ESLINT
     }
-    
+  
     rectangle "测试工具" as TEST_TOOLS {
         rectangle "Selenium" as SELENIUM
         rectangle "JMeter" as JMETER
         rectangle "Postman" as POSTMAN
         rectangle "Robot Framework" as ROBOT
     }
-    
+  
     rectangle "CI/CD工具" as CICD_TOOLS {
         rectangle "Jenkins" as JENKINS
         rectangle "GitLab CI" as GITLAB_CI
         rectangle "GitHub Actions" as GITHUB_ACTIONS
         rectangle "Azure Pipelines" as AZURE_PIPELINES
     }
-    
+  
     rectangle "监控工具" as MONITOR_TOOLS {
         rectangle "Prometheus" as PROMETHEUS
         rectangle "Grafana" as GRAFANA
         rectangle "ELK Stack" as ELK
         rectangle "Jaeger" as JAEGER
     }
-    
+  
     rectangle "协作工具" as COLLAB_TOOLS {
         rectangle "Slack" as SLACK
         rectangle "Teams" as TEAMS
         rectangle "钉钉" as DINGTALK
     }
-    
+  
     REQ_TOOLS <--> CODE_TOOLS
     CODE_TOOLS <--> TEST_TOOLS
     TEST_TOOLS <--> CICD_TOOLS
@@ -530,35 +530,35 @@ rectangle "数据驱动质量监控系统" as DATA_SYSTEM {
         rectangle "部署数据" as DEPLOY_DATA
         rectangle "运行时数据" as RUNTIME_DATA
     }
-    
+  
     rectangle "数据处理层" as DATA_PROCESSING {
         rectangle "数据清洗" as DATA_CLEAN
         rectangle "数据转换" as DATA_TRANSFORM
         rectangle "数据聚合" as DATA_AGGREGATE
         rectangle "指标计算" as METRIC_CALC
     }
-    
+  
     rectangle "数据存储层" as DATA_STORAGE {
         rectangle "时序数据库" as TIME_DB
         rectangle "关系数据库" as RDBMS
         rectangle "文档数据库" as DOCUMENT_DB
         rectangle "数据湖" as DATA_LAKE
     }
-    
+  
     rectangle "数据分析层" as DATA_ANALYSIS {
         rectangle "趋势分析" as TREND_ANALYSIS
         rectangle "异常检测" as ANOMALY_DETECTION
         rectangle "预测分析" as PREDICTIVE_ANALYSIS
         rectangle "根因分析" as ROOT_CAUSE_ANALYSIS
     }
-    
+  
     rectangle "数据展示层" as DATA_PRESENTATION {
         rectangle "实时仪表板" as REALTIME_DASHBOARD
         rectangle "质量报告" as QUALITY_REPORT
         rectangle "告警通知" as ALERT_NOTIFICATION
         rectangle "API接口" as API_INTERFACE
     }
-    
+  
     DATA_COLLECTION --> DATA_PROCESSING
     DATA_PROCESSING --> DATA_STORAGE
     DATA_STORAGE --> DATA_ANALYSIS
@@ -572,17 +572,17 @@ rectangle "数据驱动质量监控系统" as DATA_SYSTEM {
 
 ### 关键质量指标（KQI）
 
-| 维度 | 指标名称 | 计算公式 | 目标值 | 数据源 |
-|-----|---------|---------|--------|--------|
-| **过程质量** | 需求变更率 | (变更需求数/总需求数) × 100% | < 20% | 需求管理工具 |
-| | 代码评审覆盖率 | (评审代码行数/总代码行数) × 100% | > 90% | 代码仓库 |
-| | 构建成功率 | (成功构建次数/总构建次数) × 100% | > 95% | CI/CD工具 |
-| **产品质量** | 代码覆盖率 | (覆盖代码行数/总代码行数) × 100% | > 80% | 测试工具 |
-| | 缺陷密度 | 缺陷数/KLOC | < 2 | 缺陷管理工具 |
-| | 技术债务比率 | 技术债务修复时间/开发时间 | < 10% | 代码质量工具 |
-| **服务质量** | 系统可用性 | (总时间-故障时间)/总时间 × 100% | > 99.9% | 监控系统 |
-| | 平均响应时间 | Σ响应时间/请求总数 | < 200ms | APM工具 |
-| | 客户满意度 | 满意用户数/总用户数 × 100% | > 95% | 用户调研 |
+| 维度               | 指标名称       | 计算公式                          | 目标值  | 数据源       |
+| ------------------ | -------------- | --------------------------------- | ------- | ------------ |
+| **过程质量** | 需求变更率     | (变更需求数/总需求数) × 100%     | < 20%   | 需求管理工具 |
+|                    | 代码评审覆盖率 | (评审代码行数/总代码行数) × 100% | > 90%   | 代码仓库     |
+|                    | 构建成功率     | (成功构建次数/总构建次数) × 100% | > 95%   | CI/CD工具    |
+| **产品质量** | 代码覆盖率     | (覆盖代码行数/总代码行数) × 100% | > 80%   | 测试工具     |
+|                    | 缺陷密度       | 缺陷数/KLOC                       | < 2     | 缺陷管理工具 |
+|                    | 技术债务比率   | 技术债务修复时间/开发时间         | < 10%   | 代码质量工具 |
+| **服务质量** | 系统可用性     | (总时间-故障时间)/总时间 × 100%  | > 99.9% | 监控系统     |
+|                    | 平均响应时间   | Σ响应时间/请求总数               | < 200ms | APM工具      |
+|                    | 客户满意度     | 满意用户数/总用户数 × 100%       | > 95%   | 用户调研     |
 
 ### 质量趋势分析
 
@@ -596,19 +596,19 @@ rectangle "质量趋势分析" as TREND_ANALYSIS {
         rectangle "性能趋势" as PERF_TREND
         rectangle "质量成本趋势" as COST_TREND
     }
-    
+  
     rectangle "实时监控分析" as REALTIME {
         rectangle "构建质量监控" as BUILD_MONITOR
         rectangle "测试执行监控" as TEST_MONITOR
         rectangle "部署质量监控" as DEPLOY_MONITOR
     }
-    
+  
     rectangle "预测分析" as PREDICTIVE {
         rectangle "缺陷预测" as DEFECT_PREDICT
         rectangle "风险预警" as RISK_ALERT
         rectangle "容量规划" as CAPACITY_PLAN
     }
-    
+  
     HISTORICAL --> REALTIME
     REALTIME --> PREDICTIVE
 }
@@ -662,23 +662,23 @@ rectangle "质量文化金字塔" as CULTURE_PYRAMID {
     rectangle "质量愿景与价值观" as VISION_VALUES {
         note right : 零缺陷、客户至上、持续改进
     }
-    
+  
     rectangle "质量领导力与承诺" as LEADERSHIP {
         note right : 高层重视、资源投入、身践力行
     }
-    
+  
     rectangle "质量制度与流程" as PROCESS {
         note right : 标准规范、流程制度、考核激励
     }
-    
+  
     rectangle "质量技能与工具" as SKILLS_TOOLS {
         note right : 专业技能、工具平台、方法实践
     }
-    
+  
     rectangle "质量行为与习惯" as BEHAVIOR {
         note right : 日常行为、工作习惯、协作模式
     }
-    
+  
     VISION_VALUES --> LEADERSHIP
     LEADERSHIP --> PROCESS
     PROCESS --> SKILLS_TOOLS
@@ -702,22 +702,22 @@ gantt
     dateFormat  YYYY-MM-DD
     title       质量工程体系建设时间线
     excludes    weekdays 2024-01-01
-    
+  
     section 基础建设阶段
     质量策略制定     :done, strategy, 2024-01-01, 30d
     工具平台搭建     :done, platform, 2024-01-15, 45d
     标准规范制定     :done, standard, 2024-02-01, 30d
-    
+  
     section 试点推广阶段
     试点项目选择     :active, pilot_select, 2024-03-01, 15d
     试点实施验证     :pilot_impl, after pilot_select, 60d
     经验总结优化     :pilot_optimize, after pilot_impl, 30d
-    
+  
     section 全面推广阶段
     培训体系建设     :training, 2024-05-01, 45d
     工具平台优化     :platform_opt, after pilot_optimize, 30d
     全面推广部署     :rollout, after training, 90d
-    
+  
     section 持续优化阶段
     效果评估分析     :evaluation, after rollout, 30d
     持续改进优化     :continuous, after evaluation, 365d
@@ -739,31 +739,31 @@ rectangle "质量成熟度评估模型" as MATURITY_MODEL {
         rectangle "缺乏标准流程" as L1_PROCESS
         rectangle "主要依赖个人经验" as L1_EXPERIENCE
     }
-    
+  
     rectangle "Level 2: 可重复级" as LEVEL2 {
         rectangle "基本质量流程" as L2_PROCESS
         rectangle "项目级质量管理" as L2_PROJECT
         rectangle "基础工具应用" as L2_TOOLS
     }
-    
+  
     rectangle "Level 3: 已定义级" as LEVEL3 {
         rectangle "标准化质量流程" as L3_STANDARD
         rectangle "组织级质量管理" as L3_ORG
         rectangle "集成工具平台" as L3_PLATFORM
     }
-    
+  
     rectangle "Level 4: 已管理级" as LEVEL4 {
         rectangle "量化质量管理" as L4_QUANTIFIED
         rectangle "数据驱动决策" as L4_DATA_DRIVEN
         rectangle "预测性质量保证" as L4_PREDICTIVE
     }
-    
+  
     rectangle "Level 5: 优化级" as LEVEL5 {
         rectangle "持续优化改进" as L5_OPTIMIZATION
         rectangle "创新质量实践" as L5_INNOVATION
         rectangle "行业标杆水平" as L5_BENCHMARK
     }
-    
+  
     LEVEL1 --> LEVEL2
     LEVEL2 --> LEVEL3
     LEVEL3 --> LEVEL4
@@ -784,6 +784,7 @@ rectangle "质量成熟度评估模型" as MATURITY_MODEL {
 5. **数据驱动**：建立完善的质量度量和分析体系
 
 通过该体系的实施，组织能够：
+
 - 建立完善的质量保证机制
 - 提升软件交付质量和效率
 - 降低质量成本和风险
