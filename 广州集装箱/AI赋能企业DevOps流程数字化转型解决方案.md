@@ -662,13 +662,18 @@ gantt
 
 ```plantuml
 @startgantt
-!theme amiga
+!theme plain
 
 ' 设置字体大小和样式
-skinparam defaultFontSize 14
-skinparam ganttTaskFontSize 14
+skinparam defaultFontSize 16
+skinparam ganttTaskFontSize 16
 skinparam ganttTaskFontColor white
 skinparam ganttTaskFontStyle bold
+
+' 设置背景和边框
+skinparam backgroundColor white
+skinparam ganttTaskBorderThickness 3
+skinparam ganttTaskBorderColor #333333
 
 printscale weekly
 
