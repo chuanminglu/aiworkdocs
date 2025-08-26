@@ -675,7 +675,7 @@ gantt
 ### PlantUML版本甘特图
 
 ```plantuml
-@startuml AI赋能DevOps实施甘特图
+@startgantt
 !define LIGHTBLUE #E3F2FD
 !define BLUE #2196F3
 !define GREEN #4CAF50
@@ -683,105 +683,105 @@ gantt
 !define PURPLE #9C27B0
 !define RED #F44336
 
-project starts 2025-09-01
+Project starts 2025-09-01
+saturday are closed
+sunday are closed
 
-[现状评估阶段] as [EVAL] lasts 32 days
-[EVAL] is colored in LIGHTBLUE
+-- 阶段一：现状评估 --
+[现状评估阶段] starts 2025-09-01 and lasts 32 days
+[现状评估阶段] is colored in LIGHTBLUE
 
-[组织流程调研] as [T1] lasts 8 days
-[T1] starts 2025-09-02
-[T1] is colored in BLUE
+[组织流程调研] starts 2025-09-02 and lasts 8 days
+[组织流程调研] is colored in BLUE
 
-[技术现状分析] as [T2] lasts 7 days  
-[T2] starts 2025-09-10
-[T2] is colored in BLUE
+[技术现状分析] starts 2025-09-10 and lasts 7 days
+[技术现状分析] is colored in BLUE
 
-[可行性研究] as [T3] lasts 10 days
-[T3] starts 2025-09-22
-[T3] is colored in BLUE
+[可行性研究] starts 2025-09-22 and lasts 10 days
+[可行性研究] is colored in BLUE
 
-[方案设计阶段] as [DESIGN] lasts 62 days
-[DESIGN] starts 2025-10-03
-[DESIGN] is colored in GREEN
+-- 阶段二：方案设计 --
+[方案设计阶段] starts 2025-10-03 and lasts 62 days
+[方案设计阶段] is colored in GREEN
 
-[架构方案设计] as [D1] lasts 15 days
-[D1] starts 2025-10-03
-[D1] is colored in GREEN
+[架构方案设计] starts 2025-10-03 and lasts 15 days
+[架构方案设计] is colored in GREEN
 
-[场景应用设计] as [D2] lasts 24 days
-[D2] starts 2025-10-18
-[D2] is colored in GREEN
+[场景应用设计] starts 2025-10-18 and lasts 24 days
+[场景应用设计] is colored in GREEN
 
-[培训体系设计] as [D3] lasts 18 days
-[D3] starts 2025-11-11
-[D3] is colored in GREEN
+[培训体系设计] starts 2025-11-11 and lasts 18 days
+[培训体系设计] is colored in GREEN
 
-[培训赋能阶段] as [TRAIN] lasts 91 days
-[TRAIN] starts 2025-12-05
-[TRAIN] is colored in ORANGE
+-- 阶段三：培训赋能 --
+[培训赋能阶段] starts 2025-12-05 and lasts 91 days
+[培训赋能阶段] is colored in ORANGE
 
-[高管层培训] as [TR1] lasts 10 days
-[TR1] starts 2025-12-15
-[TR1] is colored in ORANGE
+[高管层培训] starts 2025-12-15 and lasts 10 days
+[高管层培训] is colored in ORANGE
 
-[管理层培训] as [TR2] lasts 20 days
-[TR2] starts 2026-01-02
-[TR2] is colored in ORANGE
+[管理层培训] starts 2026-01-02 and lasts 20 days
+[管理层培训] is colored in ORANGE
 
-[技术层培训] as [TR3] lasts 30 days
-[TR3] starts 2026-01-22
-[TR3] is colored in ORANGE
+[技术层培训] starts 2026-01-22 and lasts 30 days
+[技术层培训] is colored in ORANGE
 
-[试点实施阶段] as [PILOT] lasts 80 days
-[PILOT] starts 2026-03-07
-[PILOT] is colored in PURPLE
+-- 阶段四：试点实施 --
+[试点实施阶段] starts 2026-03-07 and lasts 80 days
+[试点实施阶段] is colored in PURPLE
 
-[环境搭建] as [P1] lasts 10 days
-[P1] starts 2026-03-07
-[P1] is colored in PURPLE
+[环境搭建] starts 2026-03-07 and lasts 10 days
+[环境搭建] is colored in PURPLE
 
-[工具集成] as [P2] lasts 25 days
-[P2] starts 2026-03-17
-[P2] is colored in PURPLE
+[工具集成] starts 2026-03-17 and lasts 25 days
+[工具集成] is colored in PURPLE
 
-[现场指导] as [P3] lasts 35 days
-[P3] starts 2026-04-11
-[P3] is colored in PURPLE
+[现场指导] starts 2026-04-11 and lasts 35 days
+[现场指导] is colored in PURPLE
 
-[效果评估阶段] as [EVALUATE] lasts 45 days
-[EVALUATE] starts 2026-05-27
-[EVALUATE] is colored in RED
+-- 阶段五：效果评估 --
+[效果评估阶段] starts 2026-05-27 and lasts 45 days
+[效果评估阶段] is colored in RED
 
-[数据分析] as [E1] lasts 12 days
-[E1] starts 2026-05-27
-[E1] is colored in RED
+[数据分析] starts 2026-05-27 and lasts 12 days
+[数据分析] is colored in RED
 
-[效果评估] as [E2] lasts 23 days
-[E2] starts 2026-06-08
-[E2] is colored in RED
+[效果评估] starts 2026-06-08 and lasts 23 days
+[效果评估] is colored in RED
 
-[推广优化阶段] as [OPTIMIZE] lasts 169 days
-[OPTIMIZE] starts 2026-07-12
-[OPTIMIZE] is colored in GREEN
+-- 阶段六：推广优化 --
+[推广优化阶段] starts 2026-07-12 and lasts 169 days
+[推广优化阶段] is colored in GREEN
 
-[推广实施] as [O1] lasts 60 days
-[O1] starts 2026-07-22
-[O1] is colored in GREEN
+[推广实施] starts 2026-07-22 and lasts 60 days
+[推广实施] is colored in GREEN
 
-[持续优化] as [O2] lasts 90 days
-[O2] starts 2026-09-20
-[O2] is colored in GREEN
+[持续优化] starts 2026-09-20 and lasts 90 days
+[持续优化] is colored in GREEN
 
 -- 关键里程碑 --
-2025-09-01 : 项目启动
-2025-10-02 : 现状评估完成
-2025-12-04 : 方案设计完成
-2026-03-06 : 培训赋能完成
-2026-05-26 : 试点实施完成
-2026-07-11 : 效果评估完成
-2026-12-28 : 项目收尾
+[项目启动] happens 2025-09-01
+[项目启动] is colored in RED
 
-@enduml
+[现状评估完成] happens 2025-10-02
+[现状评估完成] is colored in RED
+
+[方案设计完成] happens 2025-12-04
+[方案设计完成] is colored in RED
+
+[培训赋能完成] happens 2026-03-06
+[培训赋能完成] is colored in RED
+
+[试点实施完成] happens 2026-05-26
+[试点实施完成] is colored in RED
+
+[效果评估完成] happens 2026-07-11
+[效果评估完成] is colored in RED
+
+[项目收尾] happens 2026-12-28
+[项目收尾] is colored in RED
+
+@endgantt
 ```
 
 ### 阶段一：现状评估 - 全面诊断，精准定位
