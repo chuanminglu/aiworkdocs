@@ -129,7 +129,9 @@ package "AI技术融入层" {
     rectangle "智能算法集成\n(机器学习、预测算法\n知识图谱)" <<ai>> as algorithms
     
     llm --> algorithms : 协同融合
-}package "现有DevOps平台" {
+}
+
+package "现有DevOps平台" {
     rectangle "需求管理工具\n(Jira、Azure DevOps\nONES、禅道)" <<platform>> as req
     rectangle "代码开发平台\n(Git、IDE、Gitee\n腾讯工蜂)" <<platform>> as dev
     rectangle "CI/CD流水线\n(Jenkins、GitLab CI\n腾讯蓝盾、华为DevCloud)" <<platform>> as cicd
