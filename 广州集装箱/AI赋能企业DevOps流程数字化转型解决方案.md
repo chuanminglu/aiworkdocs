@@ -618,168 +618,69 @@ IntelliJ IDEA AI整合指导：
 
 ```mermaid
 gantt
-    title AI赋能DevOps咨询服务实施时间规划
+    title AI赋能DevOps咨询服务里程碑规划
     dateFormat  YYYY-MM-DD
     
     section 现状评估
     项目启动会议           :milestone, kickoff, 2025-09-01, 0d
-    组织架构与流程调研     :research1, 2025-09-02, 8d
-    技术工具链现状分析     :research2, 2025-09-10, 7d
-    团队能力评估          :research3, 2025-09-17, 5d
-    可行性分析报告        :analysis1, 2025-09-22, 6d
-    成熟度诊断评估        :maturity, 2025-09-28, 4d
-    评估报告交付          :milestone, eval-done, 2025-10-02, 0d
+    现状评估完成           :milestone, eval-done, 2025-10-02, 0d
   
     section 方案设计
-    整体架构设计          :design1, 2025-10-03, 15d
-    需求管理场景设计      :design2, 2025-10-18, 8d
-    开发测试场景设计      :design3, 2025-10-26, 8d
-    运维监控场景设计      :design4, 2025-11-03, 8d
-    培训体系规划          :training-plan, 2025-11-11, 10d
-    试点项目选择          :pilot-select, 2025-11-21, 8d
-    方案评审确认          :design-review, 2025-11-29, 5d
-    设计方案交付          :milestone, design-done, 2025-12-04, 0d
+    方案设计完成           :milestone, design-done, 2025-12-04, 0d
   
     section 培训赋能
-    培训环境准备          :train-prep, 2025-12-05, 8d
-    高管战略培训          :exec-train, 2025-12-15, 10d
-    中层管理培训          :mgmt-train, 2026-01-02, 20d
-    技术团队培训          :tech-train, 2026-01-22, 30d
-    实操技能认证          :certification, 2026-02-21, 8d
-    培训效果评估          :train-eval, 2026-03-01, 5d
-    培训完成确认          :milestone, train-done, 2026-03-06, 0d
+    培训赋能完成           :milestone, train-done, 2026-03-06, 0d
   
     section 试点实施
-    试点环境搭建          :pilot-env, 2026-03-07, 10d
-    工具集成开发          :integration, 2026-03-17, 25d
-    现场实施指导          :onsite-guide, 2026-04-11, 20d
-    问题解决优化          :troubleshoot, 2026-05-01, 15d
-    试点验收评估          :pilot-review, 2026-05-16, 10d
-    试点完成确认          :milestone, pilot-done, 2026-05-26, 0d
+    试点实施完成           :milestone, pilot-done, 2026-05-26, 0d
   
     section 效果评估
-    数据收集分析          :data-collect, 2026-05-27, 12d
-    效果评估报告          :effect-eval, 2026-06-08, 15d
-    ROI计算验证          :roi-calc, 2026-06-23, 8d
-    经验总结文档          :lessons, 2026-07-01, 10d
-    评估完成交付          :milestone, eval-complete, 2026-07-11, 0d
+    效果评估完成           :milestone, eval-complete, 2026-07-11, 0d
   
     section 推广优化
-    推广策略制定          :rollout-plan, 2026-07-12, 10d
-    全面推广实施          :rollout-exec, 2026-07-22, 60d
-    持续监控优化          :continuous, 2026-09-20, 90d
-    年度总结规划          :annual-review, 2026-12-18, 10d
-    项目正式收尾          :milestone, project-end, 2026-12-28, 0d
+    项目正式收尾           :milestone, project-end, 2026-12-28, 0d
 ```
 
-### PlantUML版本甘特图
+### PlantUML版本里程碑甘特图
 
 ```plantuml
 @startgantt
-!define LIGHTBLUE #E3F2FD
 !define BLUE #2196F3
 !define GREEN #4CAF50
 !define ORANGE #FF9800
 !define PURPLE #9C27B0
 !define RED #F44336
+!define GRAY #607D8B
+
+' 时间刻度设置为周
+printscale weekly
 
 Project starts 2025-09-01
 saturday are closed
 sunday are closed
 
--- 阶段一：现状评估 --
-[现状评估阶段] starts 2025-09-01 and lasts 32 days
-[现状评估阶段] is colored in LIGHTBLUE
+-- 核心里程碑时间线 --
 
-[组织流程调研] starts 2025-09-02 and lasts 8 days
-[组织流程调研] is colored in BLUE
-
-[技术现状分析] starts 2025-09-10 and lasts 7 days
-[技术现状分析] is colored in BLUE
-
-[可行性研究] starts 2025-09-22 and lasts 10 days
-[可行性研究] is colored in BLUE
-
--- 阶段二：方案设计 --
-[方案设计阶段] starts 2025-10-03 and lasts 62 days
-[方案设计阶段] is colored in GREEN
-
-[架构方案设计] starts 2025-10-03 and lasts 15 days
-[架构方案设计] is colored in GREEN
-
-[场景应用设计] starts 2025-10-18 and lasts 24 days
-[场景应用设计] is colored in GREEN
-
-[培训体系设计] starts 2025-11-11 and lasts 18 days
-[培训体系设计] is colored in GREEN
-
--- 阶段三：培训赋能 --
-[培训赋能阶段] starts 2025-12-05 and lasts 91 days
-[培训赋能阶段] is colored in ORANGE
-
-[高管层培训] starts 2025-12-15 and lasts 10 days
-[高管层培训] is colored in ORANGE
-
-[管理层培训] starts 2026-01-02 and lasts 20 days
-[管理层培训] is colored in ORANGE
-
-[技术层培训] starts 2026-01-22 and lasts 30 days
-[技术层培训] is colored in ORANGE
-
--- 阶段四：试点实施 --
-[试点实施阶段] starts 2026-03-07 and lasts 80 days
-[试点实施阶段] is colored in PURPLE
-
-[环境搭建] starts 2026-03-07 and lasts 10 days
-[环境搭建] is colored in PURPLE
-
-[工具集成] starts 2026-03-17 and lasts 25 days
-[工具集成] is colored in PURPLE
-
-[现场指导] starts 2026-04-11 and lasts 35 days
-[现场指导] is colored in PURPLE
-
--- 阶段五：效果评估 --
-[效果评估阶段] starts 2026-05-27 and lasts 45 days
-[效果评估阶段] is colored in RED
-
-[数据分析] starts 2026-05-27 and lasts 12 days
-[数据分析] is colored in RED
-
-[效果评估] starts 2026-06-08 and lasts 23 days
-[效果评估] is colored in RED
-
--- 阶段六：推广优化 --
-[推广优化阶段] starts 2026-07-12 and lasts 169 days
-[推广优化阶段] is colored in GREEN
-
-[推广实施] starts 2026-07-22 and lasts 60 days
-[推广实施] is colored in GREEN
-
-[持续优化] starts 2026-09-20 and lasts 90 days
-[持续优化] is colored in GREEN
-
--- 关键里程碑 --
 [项目启动] happens 2025-09-01
-[项目启动] is colored in RED
+[项目启动] is colored in BLUE
 
 [现状评估完成] happens 2025-10-02
-[现状评估完成] is colored in RED
+[现状评估完成] is colored in BLUE
 
 [方案设计完成] happens 2025-12-04
-[方案设计完成] is colored in RED
+[方案设计完成] is colored in GREEN
 
 [培训赋能完成] happens 2026-03-06
-[培训赋能完成] is colored in RED
+[培训赋能完成] is colored in ORANGE
 
 [试点实施完成] happens 2026-05-26
-[试点实施完成] is colored in RED
+[试点实施完成] is colored in PURPLE
 
 [效果评估完成] happens 2026-07-11
 [效果评估完成] is colored in RED
 
 [项目收尾] happens 2026-12-28
-[项目收尾] is colored in RED
+[项目收尾] is colored in GRAY
 
 @endgantt
 ```
