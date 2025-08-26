@@ -663,12 +663,6 @@ gantt
 ```plantuml
 @startgantt
 !theme amiga
-!define BLUE #2E86AB
-!define GREEN #A23B72
-!define ORANGE #F18F01
-!define PURPLE #C73E1D
-!define RED #B91372
-!define TEAL #1B998B
 
 ' 设置字体大小和样式
 skinparam defaultFontSize 14
@@ -677,17 +671,31 @@ skinparam ganttTaskFontColor white
 skinparam ganttTaskFontStyle bold
 
 printscale weekly
-scale 1.2
-zoom 1.5
 
 -- 企业数字化转型咨询项目主计划 --
 
-[现状评估 4.6周] lasts 32 days and is colored in BLUE
-[方案设计 8.9周] lasts 62 days and starts at [现状评估 4.6周]'s end and is colored in GREEN
-[团队建设 13.0周] lasts 91 days and starts at [方案设计 8.9周]'s end and is colored in ORANGE
-[试点实施 11.4周] lasts 80 days and starts at [团队建设 13.0周]'s end and is colored in PURPLE
-[效果评估 6.4周] lasts 45 days and starts at [试点实施 11.4周]'s end and is colored in RED
-[推广优化 24.1周] lasts 169 days and starts at [效果评估 6.4周]'s end and is colored in TEAL
+[现状评估 4.6周] lasts 32 days
+[现状评估 4.6周] is colored in #2E86AB
+
+[方案设计 8.9周] lasts 62 days 
+[方案设计 8.9周] starts at [现状评估 4.6周]'s end
+[方案设计 8.9周] is colored in #A23B72
+
+[团队建设 13.0周] lasts 91 days
+[团队建设 13.0周] starts at [方案设计 8.9周]'s end  
+[团队建设 13.0周] is colored in #F18F01
+
+[试点实施 11.4周] lasts 80 days
+[试点实施 11.4周] starts at [团队建设 13.0周]'s end
+[试点实施 11.4周] is colored in #C73E1D
+
+[效果评估 6.4周] lasts 45 days
+[效果评估 6.4周] starts at [试点实施 11.4周]'s end
+[效果评估 6.4周] is colored in #B91372
+
+[推广优化 24.1周] lasts 169 days
+[推广优化 24.1周] starts at [效果评估 6.4周]'s end
+[推广优化 24.1周] is colored in #1B998B
 
 @endgantt
 ```
