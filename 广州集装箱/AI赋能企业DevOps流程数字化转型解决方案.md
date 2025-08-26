@@ -618,72 +618,92 @@ IntelliJ IDEA AI整合指导：
 
 ```mermaid
 gantt
-    title AI赋能DevOps咨询服务里程碑规划
-    dateFormat  YYYY-MM-DD
+    title 企业数字化转型咨询服务项目计划
+    dateFormat X
+    axisFormat %s周
     
-    section 现状评估
-    项目启动会议           :milestone, kickoff, 2025-09-01, 0d
-    现状评估完成           :milestone, eval-done, 2025-10-02, 0d
+    section 现状评估(4.6周)
+    组织流程调研            :eval1, 0, 10d
+    技术架构分析            :eval2, after eval1, 8d
+    成熟度诊断评估          :eval3, after eval2, 6d
+    可行性研究              :eval4, after eval3, 8d
   
-    section 方案设计
-    方案设计完成           :milestone, design-done, 2025-12-04, 0d
+    section 方案设计(8.9周)
+    整体架构设计            :design1, after eval4, 15d
+    业务场景设计            :design2, after design1, 20d
+    培训体系规划            :design3, after design2, 12d
+    试点项目选择            :design4, after design3, 15d
   
-    section 培训赋能
-    培训赋能完成           :milestone, train-done, 2026-03-06, 0d
+    section 团队建设(13.0周)
+    高管战略培训            :train1, after design4, 15d
+    管理层实践培训          :train2, after train1, 30d
+    技术团队培训            :train3, after train2, 46d
   
-    section 试点实施
-    试点实施完成           :milestone, pilot-done, 2026-05-26, 0d
+    section 试点实施(11.4周)
+    环境搭建配置            :pilot1, after train3, 10d
+    系统集成开发            :pilot2, after pilot1, 25d
+    现场指导支持            :pilot3, after pilot2, 20d
+    问题解决优化            :pilot4, after pilot3, 25d
   
-    section 效果评估
-    效果评估完成           :milestone, eval-complete, 2026-07-11, 0d
+    section 效果评估(6.4周)
+    数据收集分析            :assess1, after pilot4, 12d
+    效果评估报告            :assess2, after assess1, 15d
+    ROI计算验证             :assess3, after assess2, 8d
+    经验总结文档            :assess4, after assess3, 10d
   
-    section 推广优化
-    项目正式收尾           :milestone, project-end, 2026-12-28, 0d
+    section 推广优化(24.1周)
+    推广策略制定            :rollout1, after assess4, 10d
+    全面推广实施            :rollout2, after rollout1, 60d
+    持续监控优化            :rollout3, after rollout2, 90d
+    年度总结规划            :rollout4, after rollout3, 9d
 ```
 
-### PlantUML版本里程碑甘特图
+### PlantUML版本主计划甘特图
 
 ```plantuml
 @startgantt
-!define BLUE #2196F3
-!define GREEN #4CAF50
-!define ORANGE #FF9800
-!define PURPLE #9C27B0
-!define RED #F44336
-!define GRAY #607D8B
+!theme amiga
+!define BLUE #2E86AB
+!define GREEN #A23B72
+!define ORANGE #F18F01
+!define PURPLE #C73E1D
+!define RED #B91372
+!define TEAL #1B998B
 
-' 时间刻度设置为周
+' 设置字体大小和样式
+skinparam defaultFontSize 14
+skinparam ganttTaskFontSize 14
+skinparam ganttTaskFontColor white
+skinparam ganttTaskFontStyle bold
+
 printscale weekly
+scale 1.2
+zoom 1.5
 
-Project starts 2025-09-01
-saturday are closed
-sunday are closed
+-- 企业数字化转型咨询项目主计划 --
 
--- 核心里程碑时间线 --
-
-[项目启动] happens 2025-09-01
-[项目启动] is colored in BLUE
-
-[现状评估完成] happens 2025-10-02
-[现状评估完成] is colored in BLUE
-
-[方案设计完成] happens 2025-12-04
-[方案设计完成] is colored in GREEN
-
-[培训赋能完成] happens 2026-03-06
-[培训赋能完成] is colored in ORANGE
-
-[试点实施完成] happens 2026-05-26
-[试点实施完成] is colored in PURPLE
-
-[效果评估完成] happens 2026-07-11
-[效果评估完成] is colored in RED
-
-[项目收尾] happens 2026-12-28
-[项目收尾] is colored in GRAY
+[现状评估 4.6周] lasts 32 days and is colored in BLUE
+[方案设计 8.9周] lasts 62 days and starts at [现状评估 4.6周]'s end and is colored in GREEN
+[团队建设 13.0周] lasts 91 days and starts at [方案设计 8.9周]'s end and is colored in ORANGE
+[试点实施 11.4周] lasts 80 days and starts at [团队建设 13.0周]'s end and is colored in PURPLE
+[效果评估 6.4周] lasts 45 days and starts at [试点实施 11.4周]'s end and is colored in RED
+[推广优化 24.1周] lasts 169 days and starts at [效果评估 6.4周]'s end and is colored in TEAL
 
 @endgantt
 ```
+
+### 阶段时间规划表
+
+| 阶段 | 名称 | 持续时间 | 累计时间 | 主要工作内容 |
+|------|------|---------|----------|-------------|
+| 1 | 现状评估 | 32天 (4.6周) | 第1-32天 | 深度调研、可行性分析、成熟度评估 |
+| 2 | 方案设计 | 62天 (8.9周) | 第33-94天 | 架构设计、场景规划、培训设计 |
+| 3 | 培训赋能 | 91天 (13周) | 第95-185天 | 分层培训、技能建设、能力认证 |
+| 4 | 试点实施 | 80天 (11.4周) | 第186-265天 | 环境搭建、工具集成、现场指导 |
+| 5 | 效果评估 | 45天 (6.4周) | 第266-310天 | 数据分析、效果验证、经验总结 |
+| 6 | 推广优化 | 169天 (24.1周) | 第311-479天 | 全面推广、持续监控、长期支持 |
+
+**项目总周期**：479天（约68.4周，16个月）
 
 ### 阶段一：现状评估 - 全面诊断，精准定位
 
