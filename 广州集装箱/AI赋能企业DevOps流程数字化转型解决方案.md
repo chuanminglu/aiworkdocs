@@ -941,7 +941,7 @@ printscale weekly
 [团队建设 1.9周] is colored in LightGoldenRodYellow
 
 [试点实施 5.7周] lasts 40 days
-[试点实施 5.7周] starts at [团队建设 6.5周]'s end
+[试点实施 5.7周] starts at [团队建设 1.9周]'s end
 [试点实施 5.7周] is colored in LightCoral
 
 [效果评估 3.2周] lasts 23 days
@@ -951,15 +951,6 @@ printscale weekly
 [推广优化 12.1周] lasts 85 days
 [推广优化 12.1周] starts at [效果评估 3.2周]'s end
 [推广优化 12.1周] is colored in LightSeaGreen
-[试点实施 5.7周] is colored in #C73E1D
-
-[效果评估 3.2周] lasts 23 days
-[效果评估 3.2周] starts at [试点实施 5.7周]'s end
-[效果评估 3.2周] is colored in #B91372
-
-[推广优化 12.1周] lasts 85 days
-[推广优化 12.1周] starts at [效果评估 3.2周]'s end
-[推广优化 12.1周] is colored in #1B998B
 
 @endgantt
 ```
