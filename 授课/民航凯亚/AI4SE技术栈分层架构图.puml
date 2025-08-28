@@ -1,0 +1,100 @@
+@startuml AI4SE技术栈分层架构
+!theme plain
+skinparam backgroundColor #F8F9FA
+skinparam defaultFontSize 12
+skinparam defaultFontName "Microsoft YaHei"
+
+title AI4SE技术栈分层架构\n🏗️ AI for Software Engineering Technology Stack
+
+' 定义颜色
+skinparam rectangle {
+    BackgroundColor<<core1>> #E3F2FD
+    BorderColor<<core1>> #1976D2
+    BackgroundColor<<core2>> #E8F5E8
+    BorderColor<<core2>> #388E3C
+    BackgroundColor<<core3>> #FFF3E0
+    BorderColor<<core3>> #F57C00
+    BackgroundColor<<support>> #F3E5F5
+    BorderColor<<support>> #7B1FA2
+    BackgroundColor<<application>> #E0F2F1
+    BorderColor<<application>> #00796B
+}
+
+' 应用层
+package "🎯 AI4SE应用层" as ApplicationLayer {
+    rectangle "需求工程\n• 需求分析 ⭐\n• 文档生成 ⭐\n• 冲突检测 ⭐⭐" as REQ <<application>>
+    rectangle "代码开发\n• 代码生成 ⭐\n• 智能补全 ⭐\n• 代码审查 ⭐⭐" as DEV <<application>>
+    rectangle "测试工程\n• 用例生成 ⭐⭐\n• 缺陷预测 ⭐⭐⭐\n• 自动化测试 ⭐⭐" as TEST <<application>>
+    rectangle "运维工程\n• 监控告警 ⭐⭐\n• 故障预测 ⭐⭐⭐⭐\n• 自愈系统 ⭐⭐⭐⭐⭐" as OPS <<application>>
+}
+
+' 核心技术层
+package "🧠 核心AI技术层" as CoreTechLayer {
+    rectangle "大语言模型 (LLM)\n复杂度: ⭐\n• GPT-4/Claude-3\n• 代码生成\n• 文档自动化\n• 💡 推荐: 优先采用" as LLM <<core1>>
+    
+    rectangle "自然语言处理 (NLP)\n复杂度: ⭐⭐\n• 文本分析\n• 语义理解\n• 需求提取\n• 💡 推荐: 快速集成" as NLP <<core2>>
+    
+    rectangle "知识图谱 (KG)\n复杂度: ⭐⭐⭐\n• 实体关系建模\n• 智能问答\n• 影响分析\n• 💡 推荐: 中期规划" as KG <<core3>>
+}
+
+package "📊 高级AI技术层" as AdvancedTechLayer {
+    rectangle "机器学习 (ML)\n复杂度: ⭐⭐⭐\n• 预测分析\n• 分类回归\n• 异常检测\n• 💡 推荐: 专业团队" as ML <<core2>>
+    
+    rectangle "深度学习 (DL)\n复杂度: ⭐⭐⭐⭐\n• 神经网络\n• 特征学习\n• 模式识别\n• 💡 推荐: 长期投入" as DL <<core3>>
+    
+    rectangle "预测算法 (PA)\n复杂度: ⭐⭐⭐⭐\n• 时序预测\n• 风险评估\n• 容量规划\n• 💡 推荐: 战略布局" as PA <<core1>>
+}
+
+' 支撑技术层
+package "🔧 支撑技术层" as SupportLayer {
+    rectangle "图像处理\n复杂度: ⭐⭐⭐\n• UI/UX分析\n• 视觉测试\n• 界面生成" as IMG <<support>>
+    
+    rectangle "向量数据库\n复杂度: ⭐⭐\n• 语义检索\n• 相似度计算\n• 知识存储" as VDB <<support>>
+    
+    rectangle "多模态处理\n复杂度: ⭐⭐⭐⭐\n• 文本+图像\n• 语音识别\n• 综合理解" as MULTI <<support>>
+}
+
+' 基础设施层
+package "🏗️ 基础设施层" as InfraLayer {
+    rectangle "数据平台\n• 数据湖/仓库\n• ETL处理\n• 质量治理" as DATA
+    rectangle "计算平台\n• GPU集群\n• 云原生架构\n• 弹性伸缩" as COMPUTE
+    rectangle "AI平台\n• MLOps\n• 模型管理\n• 版本控制" as AIPLATFORM
+}
+
+' 连接关系
+REQ --> LLM : 文档生成
+REQ --> NLP : 需求分析
+DEV --> LLM : 代码生成
+DEV --> KG : 知识复用
+TEST --> ML : 缺陷预测
+TEST --> PA : 测试优化
+OPS --> DL : 模式识别
+OPS --> PA : 故障预测
+
+LLM --> VDB : 语义搜索
+NLP --> VDB : 文本向量化
+KG --> VDB : 知识存储
+ML --> DATA : 训练数据
+DL --> COMPUTE : 计算资源
+PA --> AIPLATFORM : 模型部署
+
+IMG --> MULTI : 视觉输入
+VDB --> MULTI : 语义融合
+MULTI --> AIPLATFORM : 模型集成
+
+' 实施建议注释
+note right of LLM : 🚀 **快速启动**\n• 成本低，见效快\n• API调用即可\n• 适合概念验证
+note right of ML : 📊 **稳步推进**\n• 需要数据积累\n• 模型训练周期\n• 专业技能要求
+note right of DL : 🎯 **长期规划**\n• 高投入高回报\n• 需要专业团队\n• 战略性技术
+
+' 复杂度图例
+legend right
+|= 复杂度等级 |= 实施建议 |= 时间规划 |
+| ⭐ 简单 | 优先采用 | 1-3个月 |
+| ⭐⭐ 中等 | 快速集成 | 3-6个月 |
+| ⭐⭐⭐ 复杂 | 中期规划 | 6-12个月 |
+| ⭐⭐⭐⭐ 高级 | 专业团队 | 12-18个月 |
+| ⭐⭐⭐⭐⭐ 专业 | 战略布局 | 18-24个月 |
+endlegend
+
+@enduml

@@ -1,0 +1,103 @@
+@startuml 核心AI技术分类体系架构
+!define DIRECTION left to right direction
+title 核心AI技术分类体系架构
+
+' 定义样式
+skinparam rectangle {
+    BackgroundColor White
+    BorderColor Black
+    FontSize 10
+}
+
+skinparam package {
+    FontSize 12
+    FontStyle bold
+}
+
+' 核心AI技术分类 - 上层主要技术
+package "大语言模型技术 (LLM)" as llm #E8F5E8 {
+    rectangle "GPT-5/Claude-4\nQWen/DeepSeek等" as llm_tech
+    rectangle "需求文档生成\n代码生成\n架构设计\n测试用例生成\n运维脚本生成等" as llm_scenarios
+}
+
+package "自然语言处理 (NLP)" as nlp #E8F0FF {
+    rectangle "BERT/Transformer\njieba/spaCy" as nlp_tech
+    rectangle "需求文档解析\n需求冲突检测\n技术文档解析\nAPI文档生成等" as nlp_scenarios
+}
+
+package "知识图谱技术 (KG)" as kg #FFF0E8 {
+    rectangle "Neo4j/ArangoDB\nRDF三元组" as kg_tech
+    rectangle "影响分析\n专家推荐\n问题诊断\n技术选型等" as kg_scenarios
+}
+
+package "机器学习算法 (ML)" as ml #FFE8F0 {
+    rectangle "随机森林/XGBoost\nLSTM/CNN" as ml_tech
+    rectangle "工期预测\n缺陷预测\n性能预测\n容量规划等" as ml_scenarios
+}
+
+package "深度学习技术 (DL)" as dl #F0E8FF {
+    rectangle "PyTorch/TensorFlow\nResNet/LSTM" as dl_tech
+    rectangle "代码表示学习\n语义代码搜索\nAIOps\n故障根因分析等" as dl_scenarios
+}
+
+package "预测算法技术" as predict #E8FFE8 {
+    rectangle "ARIMA/Prophet\n孤立森林" as predict_tech
+    rectangle "资源预测\n性能预测\n异常检测\n故障预测等" as predict_scenarios
+}
+
+' 支撑技术体系 - 下方与LLM对齐
+package "支撑技术体系" as support #F8F8F8 {
+    package "图表处理技术" as chart #FFE8E8 {
+        rectangle "OCR/CNN\nEAST/CRNN" as chart_tech
+        rectangle "架构图解析\n监控图表分析\n界面截图分析等" as chart_scenarios
+    }
+    
+    package "向量数据库技术" as vector #E8E8FF {
+        rectangle "Milvus/Weaviate\nHNSW/Faiss" as vector_tech
+        rectangle "语义代码搜索\n技术文档检索\nAPI推荐等" as vector_scenarios
+    }
+    
+    package "多模态技术" as multimodal #FFE8FF {
+        rectangle "CLIP/GPT-4V\nWhisper/Wav2Vec" as multimodal_tech
+        rectangle "图文混合文档解析\n技术会议转录\n代码可视化等" as multimodal_scenarios
+    }
+}
+
+' 核心技术横向排列 - 上层
+llm -right-> nlp
+nlp -right-> kg
+kg -right-> ml
+ml -right-> dl  
+dl -right-> predict
+
+' 支撑技术横向排列 - 下层，与NLP对齐
+chart -right-> vector
+vector -right-> multimodal
+
+' 垂直对齐连接 - NLP与图表处理对齐
+nlp -down-> chart
+
+' 添加应用场景说明
+note top of llm : DevOps全流程内容生成\n最易实施，效果显著
+note top of nlp : 文本理解与处理\n中等复杂度，广泛应用
+note top of kg : 知识关联与推理\n高复杂度，深度洞察
+note top of ml : 数据分析与预测\n很高复杂度，预测能力
+note top of dl : 深度模式识别\n极高复杂度，智能决策
+note top of predict : 时序预测与异常检测\n专业算法，运维核心
+
+note bottom of chart : 图像识别与解析\n提升文档处理能力
+note bottom of vector : 语义搜索与匹配\n增强知识检索效果  
+note bottom of multimodal : 多模态数据融合\n扩展AI应用边界
+
+' 技术复杂度图例
+legend bottom
+技术实施复杂度等级:
+* 大语言模型: ⭐ (API调用即用)
+* 自然语言处理: ⭐⭐ (工具链集成)
+* 知识图谱: ⭐⭐⭐ (图数据建模)
+* 机器学习: ⭐⭐⭐⭐ (算法训练)
+* 深度学习: ⭐⭐⭐⭐⭐ (框架开发)
+* 预测算法: ⭐⭐⭐⭐ (专业算法)
+endlegend
+
+@enduml

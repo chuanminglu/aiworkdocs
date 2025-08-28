@@ -116,7 +116,7 @@ note bottom of practice
     <size:12><b>实践要点：</b>
     • Copilot提示词工程
     • conda/poetry环境管理
-    • OpenAI/Claude API集成
+    • Deepseek/Claude API集成
     • FastAPI微服务开发
     
     <b>效率提升：</b>

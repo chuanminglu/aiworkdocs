@@ -1,0 +1,136 @@
+@startuml DevOps_AI赋能场景分类图
+!theme blueprint
+title DevOps全流程AI赋能场景分类体系
+
+' 定义颜色
+!define CONTENT_COLOR #E8F5E8
+!define ASSISTANT_COLOR #E8F0FF
+!define ANALYTICS_COLOR #FFF0E8
+!define DECISION_COLOR #FFE8F0
+!define PROFESSIONAL_COLOR #F0E8FF
+
+' 定义样式
+skinparam rectangle {
+    BackgroundColor White
+    BorderColor Black
+    FontSize 10
+}
+
+skinparam package {
+    FontSize 12
+    FontStyle bold
+}
+
+' DevOps流程阶段
+package "DevOps全流程阶段" as devops {
+    rectangle "需求分析" as req #lightblue
+    rectangle "架构设计" as design #lightblue  
+    rectangle "开发编码" as dev #lightblue
+    rectangle "测试验证" as test #lightblue
+    rectangle "CI/CD部署" as deploy #lightblue
+    rectangle "运维监控" as ops #lightblue
+}
+
+' AI应用分类
+package "AI应用五大分类" as ai_types {
+    package "内容生成类" as content #CONTENT_COLOR {
+        rectangle "需求文档生成" as req_doc
+        rectangle "架构文档生成" as arch_doc
+        rectangle "代码注释生成" as code_doc
+        rectangle "测试报告生成" as test_doc
+        rectangle "部署文档生成" as deploy_doc
+        rectangle "运维手册生成" as ops_doc
+    }
+    
+    package "智能助理类" as assistant #ASSISTANT_COLOR {
+        rectangle "需求澄清助手" as req_assist
+        rectangle "设计评审助手" as design_assist
+        rectangle "编程助手" as code_assist
+        rectangle "测试执行助手" as test_assist
+        rectangle "部署助手" as deploy_assist
+        rectangle "运维助手" as ops_assist
+    }
+    
+    package "数据分析类" as analytics #ANALYTICS_COLOR {
+        rectangle "需求变更分析" as req_analysis
+        rectangle "架构复杂度分析" as arch_analysis
+        rectangle "代码质量分析" as code_analysis
+        rectangle "缺陷模式分析" as defect_analysis
+        rectangle "部署成功率分析" as deploy_analysis
+        rectangle "性能趋势分析" as perf_analysis
+    }
+    
+    package "智能决策类" as decision #DECISION_COLOR {
+        rectangle "需求优先级决策" as req_decision
+        rectangle "技术选型决策" as tech_decision
+        rectangle "重构时机决策" as refactor_decision
+        rectangle "发布策略决策" as release_decision
+        rectangle "扩容决策支持" as scale_decision
+        rectangle "故障处理决策" as incident_decision
+    }
+    
+    package "专业工具类" as professional #PROFESSIONAL_COLOR {
+        rectangle "智能需求建模" as req_modeling
+        rectangle "自动架构生成" as auto_arch
+        rectangle "Agent代码生成" as agent_code
+        rectangle "自动化测试生成" as auto_test
+        rectangle "智能部署编排" as smart_deploy
+        rectangle "预测性运维" as predictive_ops
+    }
+}
+
+' 连接关系
+req --> req_doc
+req --> req_assist
+req --> req_analysis
+req --> req_decision
+req --> req_modeling
+
+design --> arch_doc
+design --> design_assist
+design --> arch_analysis
+design --> tech_decision
+design --> auto_arch
+
+dev --> code_doc
+dev --> code_assist
+dev --> code_analysis
+dev --> refactor_decision
+dev --> agent_code
+
+test --> test_doc
+test --> test_assist
+test --> defect_analysis
+test --> release_decision
+test --> auto_test
+
+deploy --> deploy_doc
+deploy --> deploy_assist
+deploy --> deploy_analysis
+deploy --> scale_decision
+deploy --> smart_deploy
+
+ops --> ops_doc
+ops --> ops_assist
+ops --> perf_analysis
+ops --> incident_decision
+ops --> predictive_ops
+
+' 添加说明
+note top of content : 低门槛\n快速见效\n提升创作效率
+note top of assistant : 中等门槛\n流程优化\n智能协作
+note top of analytics : 高门槛\n数据驱动\n深度洞察
+note top of decision : 很高门槛\n战略价值\n智能决策
+note top of professional : 极高门槛\n专业定制\n颠覆创新
+
+' 添加技术复杂度指示
+legend right
+|= 技术复杂度 |= 实施难度 |= 业务价值 |
+| 星级1 | 即用型 | 效率工具 |
+| 星级2 | 配置型 | 流程优化 |
+| 星级3 | 开发型 | 决策支持 |
+| 星级4 | 定制型 | 创新驱动 |
+| 星级5 | 研究型 | 商业重构 |
+endlegend
+
+@enduml
