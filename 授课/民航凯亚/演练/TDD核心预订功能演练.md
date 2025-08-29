@@ -3,12 +3,14 @@
 ## 📋 演练概述
 
 ### 演练目标
+
 - 掌握TDD的Red-Green-Refactor完整循环
 - 体验AI辅助的测试驱动开发过程
 - 理解测试先行的设计思维
 - 完成航班预订系统的核心预订功能
 
 ### 技术栈
+
 - **语言**: Java 17
 - **框架**: Spring Boot 3.x
 - **测试框架**: JUnit 5 + Mockito
@@ -16,7 +18,9 @@
 - **AI工具**: GitHub Copilot / Claude / ChatGPT
 
 ### 演练时长
+
 **总计：90分钟**
+
 - 环境准备：15分钟
 - 第一阶段TDD开发：35分钟
 - 第二阶段功能扩展：25分钟
@@ -27,12 +31,14 @@
 **功能**：实现航班预订系统的核心预订功能
 
 **业务规则**：
+
 1. 单次预订最多9名乘客
 2. 起飞前2小时停止预订
 3. 需要验证乘客基本信息
 4. 支持简单的价格计算
 
 **技术约束**：
+
 - 采用简单的Service层架构
 - 使用Spring Boot框架
 - 暂不涉及数据库和外部服务集成
@@ -42,6 +48,7 @@
 ### Step 1: AI辅助需求分析
 
 **提示词模板**：
+
 ```
 我需要实现一个航班预订系统的核心预订功能。
 
@@ -60,6 +67,7 @@
 ```
 
 **AI分析结果示例**：
+
 ```
 基于需求分析，我识别出以下关键测试场景：
 
@@ -108,17 +116,17 @@ public void shouldBookFlightSuccessfullyForSinglePassenger() {
     List<PassengerInfo> passengers = Arrays.asList(
         createValidPassenger("张三")
     );
-    
+  
     BookingRequest request = BookingRequest.builder()
         .flightId("CA1234-20241225")
         .passengers(passengers)
         .contactInfo(createValidContact())
         .paymentInfo(createValidPayment())
         .build();
-    
+  
     // When: 执行预订
     BookingResult result = bookingService.bookFlight(request);
-    
+  
     // Then: 验证预订成功
     assertThat(result.isSuccess()).isTrue();
     assertThat(result.getBookingId()).isNotNull();
@@ -158,6 +166,7 @@ private PaymentInfo createValidPayment() {
 #### 2.2 让AI生成最小接口定义
 
 **AI提示词**：
+
 ```
 基于上面的测试用例，帮我生成对应的接口和数据结构定义。
 要求：
@@ -167,6 +176,7 @@ private PaymentInfo createValidPayment() {
 ```
 
 **AI生成的接口**：
+
 ```java
 // 预订服务接口
 public interface FlightBookingService {
@@ -246,6 +256,7 @@ FlightBookingService class not found
 #### 🟢 GREEN阶段：AI生成最小实现
 
 **AI提示词**：
+
 ```
 现在测试失败了，请为我生成一个最简单的实现，让测试通过。
 要求：
@@ -255,10 +266,11 @@ FlightBookingService class not found
 ```
 
 **AI生成的最小实现**：
+
 ```java
 @Service
 public class FlightBookingServiceImpl implements FlightBookingService {
-    
+  
     @Override
     public BookingResult bookFlight(BookingRequest request) {
         // 最简实现：直接返回成功结果
@@ -273,6 +285,7 @@ public class FlightBookingServiceImpl implements FlightBookingService {
 ```
 
 **运行测试确认通过**：
+
 ```bash
 mvn test -Dtest=FlightBookingServiceTest#shouldBookFlightSuccessfullyForSinglePassenger
 # 预期输出：测试通过 ✅
@@ -280,6 +293,7 @@ mvn test -Dtest=FlightBookingServiceTest#shouldBookFlightSuccessfullyForSinglePa
 ```
 
 #### 🔵 REFACTOR阶段：暂时跳过
+
 由于代码很简单，暂时不需要重构。
 
 ## 🚀 第二阶段：迭代增加功能
@@ -296,17 +310,17 @@ public void shouldFailWhenPassengerCountExceedsLimit() {
     List<PassengerInfo> passengers = IntStream.range(1, 11)
         .mapToObj(i -> createValidPassenger("乘客" + i))
         .collect(Collectors.toList());
-    
+  
     BookingRequest request = BookingRequest.builder()
         .flightId("CA1234-20241225")
         .passengers(passengers)
         .contactInfo(createValidContact())
         .paymentInfo(createValidPayment())
         .build();
-    
+  
     // When: 执行预订
     BookingResult result = bookingService.bookFlight(request);
-    
+  
     // Then: 应该失败
     assertThat(result.isSuccess()).isFalse();
     assertThat(result.getErrorCode()).isEqualTo("EXCEED_MAX_PASSENGERS");
@@ -318,25 +332,25 @@ public void shouldFailWhenPassengerCountExceedsLimit() {
 public void shouldFailWhenBookingTooCloseToDepature() {
     // Given: 航班在1小时后起飞
     String flightId = "CA1234-" + LocalDate.now().toString();
-    
+  
     BookingRequest request = BookingRequest.builder()
         .flightId(flightId)
         .passengers(Arrays.asList(createValidPassenger("张三")))
         .contactInfo(createValidContact())
         .paymentInfo(createValidPayment())
         .build();
-    
+  
     // Mock航班信息：1小时后起飞
     Flight flight = Flight.builder()
         .flightId(flightId)
         .departureTime(LocalDateTime.now().plusHours(1))
         .build();
-    
+  
     when(flightService.getFlightInfo(flightId)).thenReturn(flight);
-    
+  
     // When: 执行预订
     BookingResult result = bookingService.bookFlight(request);
-    
+  
     // Then: 应该失败
     assertThat(result.isSuccess()).isFalse();
     assertThat(result.getErrorCode()).isEqualTo("BOOKING_TOO_LATE");
@@ -354,6 +368,7 @@ mvn test -Dtest=FlightBookingServiceTest
 #### 4.3 🟢 AI生成验证逻辑
 
 **AI提示词**：
+
 ```
 现在需要添加业务规则验证：
 1. 乘客人数验证，最多9人
@@ -366,19 +381,20 @@ mvn test -Dtest=FlightBookingServiceTest
 ```
 
 **AI生成的改进实现**：
+
 ```java
 @Service
 public class FlightBookingServiceImpl implements FlightBookingService {
-    
+  
     private static final int MAX_PASSENGERS = 9;
     private static final int BOOKING_CUTOFF_HOURS = 2;
-    
+  
     private final FlightService flightService;
-    
+  
     public FlightBookingServiceImpl(FlightService flightService) {
         this.flightService = flightService;
     }
-    
+  
     @Override
     public BookingResult bookFlight(BookingRequest request) {
         // 输入验证
@@ -390,7 +406,7 @@ public class FlightBookingServiceImpl implements FlightBookingService {
                 .errorMessage(validation.getErrorMessage())
                 .build();
         }
-        
+      
         // 航班时间验证
         Flight flight = flightService.getFlightInfo(request.getFlightId());
         ValidationResult timeValidation = validateBookingTime(flight);
@@ -401,7 +417,7 @@ public class FlightBookingServiceImpl implements FlightBookingService {
                 .errorMessage(timeValidation.getErrorMessage())
                 .build();
         }
-        
+      
         // 预订成功
         return BookingResult.builder()
             .success(true)
@@ -410,32 +426,32 @@ public class FlightBookingServiceImpl implements FlightBookingService {
             .passengerCount(request.getPassengers().size())
             .build();
     }
-    
+  
     private ValidationResult validateBookingRequest(BookingRequest request) {
         if (request.getPassengers() == null || request.getPassengers().isEmpty()) {
             return ValidationResult.invalid("MISSING_PASSENGERS", "至少需要一名乘客");
         }
-        
+      
         if (request.getPassengers().size() > MAX_PASSENGERS) {
             return ValidationResult.invalid("EXCEED_MAX_PASSENGERS", 
                 "最多只能预订" + MAX_PASSENGERS + "名乘客");
         }
-        
+      
         return ValidationResult.valid();
     }
-    
+  
     private ValidationResult validateBookingTime(Flight flight) {
         if (flight == null) {
             return ValidationResult.invalid("FLIGHT_NOT_FOUND", "航班不存在");
         }
-        
+      
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime cutoffTime = flight.getDepartureTime().minusHours(BOOKING_CUTOFF_HOURS);
-        
+      
         if (now.isAfter(cutoffTime)) {
             return ValidationResult.invalid("BOOKING_TOO_LATE", "起飞前2小时停止预订");
         }
-        
+      
         return ValidationResult.valid();
     }
 }
@@ -447,11 +463,11 @@ public class ValidationResult {
     private boolean valid;
     private String errorCode;
     private String errorMessage;
-    
+  
     public static ValidationResult valid() {
         return new ValidationResult(true, null, null);
     }
-    
+  
     public static ValidationResult invalid(String errorCode, String errorMessage) {
         return new ValidationResult(false, errorCode, errorMessage);
     }
@@ -487,6 +503,7 @@ mvn test -Dtest=FlightBookingServiceTest
 #### 4.5 🔵 重构阶段：提取验证器
 
 **AI提示词**：
+
 ```
 现在验证逻辑混在service里，请帮我重构，提取出独立的验证器类。
 要求：
@@ -496,6 +513,7 @@ mvn test -Dtest=FlightBookingServiceTest
 ```
 
 **AI生成的重构代码**：
+
 ```java
 // 验证器接口
 public interface BookingRequestValidator {
@@ -505,9 +523,9 @@ public interface BookingRequestValidator {
 // 组合验证器
 @Component
 public class CompositeBookingRequestValidator implements BookingRequestValidator {
-    
+  
     private final List<BookingRequestValidator> validators;
-    
+  
     public CompositeBookingRequestValidator() {
         this.validators = Arrays.asList(
             new PassengerCountValidator(),
@@ -516,7 +534,7 @@ public class CompositeBookingRequestValidator implements BookingRequestValidator
             new PaymentInfoValidator()
         );
     }
-    
+  
     @Override
     public ValidationResult validate(BookingRequest request) {
         for (BookingRequestValidator validator : validators) {
@@ -532,18 +550,18 @@ public class CompositeBookingRequestValidator implements BookingRequestValidator
 // 乘客人数验证器
 public class PassengerCountValidator implements BookingRequestValidator {
     private static final int MAX_PASSENGERS = 9;
-    
+  
     @Override
     public ValidationResult validate(BookingRequest request) {
         if (request.getPassengers() == null || request.getPassengers().isEmpty()) {
             return ValidationResult.invalid("MISSING_PASSENGERS", "至少需要一名乘客");
         }
-        
+      
         if (request.getPassengers().size() > MAX_PASSENGERS) {
             return ValidationResult.invalid("EXCEED_MAX_PASSENGERS", 
                 "最多只能预订" + MAX_PASSENGERS + "名乘客");
         }
-        
+      
         return ValidationResult.valid();
     }
 }
@@ -551,16 +569,16 @@ public class PassengerCountValidator implements BookingRequestValidator {
 // 重构后的服务类
 @Service
 public class FlightBookingServiceImpl implements FlightBookingService {
-    
+  
     private final FlightService flightService;
     private final BookingRequestValidator validator;
-    
+  
     public FlightBookingServiceImpl(FlightService flightService, 
                                   BookingRequestValidator validator) {
         this.flightService = flightService;
         this.validator = validator;
     }
-    
+  
     @Override
     public BookingResult bookFlight(BookingRequest request) {
         // 输入验证
@@ -568,14 +586,14 @@ public class FlightBookingServiceImpl implements FlightBookingService {
         if (!validation.isValid()) {
             return createFailureResult(validation);
         }
-        
+      
         // 航班时间验证
         Flight flight = flightService.getFlightInfo(request.getFlightId());
         ValidationResult timeValidation = validateBookingTime(flight);
         if (!timeValidation.isValid()) {
             return createFailureResult(timeValidation);
         }
-        
+      
         // 预订成功
         return BookingResult.builder()
             .success(true)
@@ -584,7 +602,7 @@ public class FlightBookingServiceImpl implements FlightBookingService {
             .passengerCount(request.getPassengers().size())
             .build();
     }
-    
+  
     private BookingResult createFailureResult(ValidationResult validation) {
         return BookingResult.builder()
             .success(false)
@@ -592,41 +610,44 @@ public class FlightBookingServiceImpl implements FlightBookingService {
             .errorMessage(validation.getErrorMessage())
             .build();
     }
-    
+  
     private ValidationResult validateBookingTime(Flight flight) {
         if (flight == null) {
             return ValidationResult.invalid("FLIGHT_NOT_FOUND", "航班不存在");
         }
-        
+      
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime cutoffTime = flight.getDepartureTime().minusHours(2);
-        
+      
         if (now.isAfter(cutoffTime)) {
             return ValidationResult.invalid("BOOKING_TOO_LATE", "起飞前2小时停止预订");
         }
-        
+      
         return ValidationResult.valid();
     }
 }
 ```
 
-##  演练总结与收获
+## 演练总结与收获
 
 ### 技能掌握检查清单
 
 #### ✅ TDD核心技能
+
 - [ ] 理解Red-Green-Refactor循环
 - [ ] 能够编写失败的测试用例
 - [ ] 能够实现最小可行代码
 - [ ] 能够在测试保护下安全重构
 
 #### ✅ AI辅助开发
+
 - [ ] 掌握AI提示词的编写技巧
 - [ ] 能够让AI生成测试用例
 - [ ] 能够让AI生成实现代码
 - [ ] 能够让AI提供重构建议
 
 #### ✅ 业务理解
+
 - [ ] 理解航班预订基本业务流程
 - [ ] 掌握输入验证的重要性
 - [ ] 理解业务规则的实现方式
@@ -634,13 +655,13 @@ public class FlightBookingServiceImpl implements FlightBookingService {
 
 ### AI工具使用效果统计
 
-| 开发环节 | 传统开发耗时 | AI辅助耗时 | 效率提升 |
-|---------|------------|-----------|---------|
-| 测试用例设计 | 25分钟 | 8分钟 | 68% |
-| 接口定义 | 15分钟 | 5分钟 | 67% |
-| 最小实现 | 20分钟 | 7分钟 | 65% |
-| 业务逻辑完善 | 30分钟 | 12分钟 | 60% |
-| 重构优化 | 20分钟 | 8分钟 | 60% |
+| 开发环节       | 传统开发耗时      | AI辅助耗时       | 效率提升      |
+| -------------- | ----------------- | ---------------- | ------------- |
+| 测试用例设计   | 25分钟            | 8分钟            | 68%           |
+| 接口定义       | 15分钟            | 5分钟            | 67%           |
+| 最小实现       | 20分钟            | 7分钟            | 65%           |
+| 业务逻辑完善   | 30分钟            | 12分钟           | 60%           |
+| 重构优化       | 20分钟            | 8分钟            | 60%           |
 | **总计** | **110分钟** | **40分钟** | **64%** |
 
 ### 关键收获总结
@@ -653,38 +674,44 @@ public class FlightBookingServiceImpl implements FlightBookingService {
 ## 🏠 实践作业
 
 ### 作业1：功能完善（必做）
+
 基于现有代码，使用TDD方式完善以下基础功能：
 
 1. **乘客信息验证增强**
+
    - 验证身份证号码格式
    - 验证手机号码格式
    - 验证乘客年龄限制（3-80岁）
-
 2. **预订信息展示**
+
    - 生成预订确认信息
    - 计算并显示总价
    - 显示乘客列表
 
 **要求**：
+
 - 遵循完整的TDD循环（Red-Green-Refactor）
 - 测试覆盖率达到90%以上
 - 使用AI工具辅助开发
 - 记录每次循环的过程和心得
 
 ### 作业2：边界条件测试（推荐）
+
 为现有功能补充更完整的测试：
 
 1. **异常场景测试**
+
    - 空输入处理
    - 非法参数处理
    - 边界值测试
-
 2. **业务规则测试**
+
    - 各种组合场景
    - 时间边界测试
    - 数量限制测试
 
 ### 作业3：代码重构练习（可选）
+
 使用AI工具帮助重构现有代码：
 
 1. 提取更多的验证器类
